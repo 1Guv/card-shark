@@ -51,6 +51,10 @@
                 "paragraph": "Move your direct debits to your credit card via our platform and upto 10x your points. Upgrade your flights to business class in no time and fly like a boss.",
                 "list": [
                     {
+                        "listTitle": "Get CAMPANION tickets mega fast.",
+                        "listIcon": "done_outline"
+                    },
+                    {
                         "listTitle": "Get your BA AMEX for <b>free</b>.",
                         "listIcon": "done_outline"
                     },
@@ -79,10 +83,14 @@
                 "ctaButtonSubText": "on average only takes 4 minutes"
             },
             {
-                "subTitle": "How it works",
+                "subTitle": "Car Owners",
                 "title": "We can also put your car payments on credit card too.",
                 "paragraph": "Convenience meets flexibility with the option to pay your car payments using a credit card. By leveraging this method, you gain the freedom to manage your expenses in a way that suits your financial needs.",
                 "list": [
+                    {
+                        "listTitle": "Get CAMPANION tickets mega fast.",
+                        "listIcon": "done_outline"
+                    },
                     {
                         "listTitle": "Build and earn massive rewards",
                         "listIcon": "done_outline"
@@ -108,56 +116,68 @@
                 "ctaButtonSubText": "on average only takes 4 minutes"
             },
             {
-                "subTitle": "How it works",
-                "title": "Get a FREE automated online valuation today.",
-                "paragraph": "We have built a sophisticated automated online valuation system that is free to use and provide you with a approximate value of your private number plate.",
+                "subTitle": "Landlords",
+                "title": "Get upto 30x points on multiple mortgages.",
+                "paragraph": "Build points faster, move multiple mortgages to our platform and earn spectacular amount of points/rewards in no time. Make it easy to upgrade your flight to business class or get free companion tickets faster.",
                 "list": [
                     {
-                        "listTitle": "Fill in the form, it only takes <b>5mins</b>.",
+                        "listTitle": "Get CAMPANION tickets mega fast.",
                         "listIcon": "done_outline"
                     },
                     {
-                        "listTitle": "Its <b>FREE</b>, so you can do it for every plate you have.",
+                        "listTitle": "Supercharge your points accumulation from multiple mortgages.",
                         "listIcon": "done_outline"
                     },
                     {
-                        "listTitle": "We have used all our <b>knowledge</b> & <b>experienece</b> to create a sophisticated algorithm to provide the most <b>accurate</b> valuation for your plate.",
+                        "listTitle": "Multiple mortgages means upto 20x - 30x your points for free upgrades and tickets",
                         "listIcon": "done_outline"
                     }
                 ],
                 "imageLeft": true,
                 "imageRight": false,
-                "imageUrl": "./assets/cogs.svg",
+                "imageUrl": "./assets/images/houses.jpeg",
                 "ctaButtonText": "Get a FREE valuation now",
                 "ctaButtonUrl": "/valuation",
                 "ctaButtonSubText": "on average only takes 4 minutes"
             },
             {
-                "subTitle": "How it works",
-                "title": "Search for your perfect number plate.",
-                "paragraph": "We have thousands of plates to search from with sophisticated filters so you can quickly find your perfect plate.",
+                "subTitle": "Did you know?",
+                "title": "Owning a BA AMEX card comes with several advantages!",
+                "paragraph": "For individuals who frequently travel with British Airways and its partner airlines. Here are some key advantages of owning a BA Amex card and the points you could earn:",
                 "list": [
                     {
-                        "listTitle": "We have the <b>fatstest</b> number plate search you have every seen.",
+                        "listTitle": "<b>Companion Voucher:</b> Certain BA Amex cards provide a Companion Voucher upon reaching spending targets. This voucher enables you to bring a companion on a British Airways flight using Avios points, covering only the taxes and fees for their ticket.",
                         "listIcon": "done_outline"
                     },
                     {
-                        "listTitle": "<b>Sophisticated filters</b> to narrow down your search.",
+                        "listTitle": "<b>Avios Points Accumulation:</b> The BA Amex card offers the ability to earn Avios points, British Airways' loyalty currency, with accelerated rates for spending on flights and partner airlines.",
                         "listIcon": "done_outline"
                     },
                     {
-                        "listTitle": "No <b>middleman</b> and no <b>commission</b> to pay.",
+                        "listTitle": "<b>Sign-Up Bonus:</b> BA Amex cards often feature substantial sign-up bonuses, enabling you to earn significant Avios points by meeting initial spending requirements.",
                         "listIcon": "done_outline"
                     },
                     {
-                        "listTitle": "Contact the seller and negotiate <b>directly</b>.",
+                        "listTitle": "<b>Travel Benefits:</b> BA Amex cards include travel perks like insurance, lounge access, and hotel discounts, enhancing your travel.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "<b>Tier Points:</b> Some BA Amex cards offer Tier Points, advancing your British Airways Executive Club status for perks like priority boarding and lounge access.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "<b>No Foreign Transaction Fees:</b> Many BA Amex cards waive foreign transaction fees, making them ideal for international travelers who frequently make purchases abroad.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Use the exclusive code <b>CARD-SHARK</b> to get your first BA AMEX card now and earn points straight away.",
                         "listIcon": "done_outline"
                     }
                 ],
                 "imageLeft": false,
                 "imageRight": true,
-                "imageUrl": "./assets/valuation.svg",
-                "ctaButtonText": "Search now",
+                "imageUrl": "./assets/images/ba-4.jpg",
+                "ctaButtonText": "Get BA AMEX now",
                 "ctaButtonUrl": "/number-plate-search",
                 "ctaButtonSubText": "on average only takes 1 minute"
             }
