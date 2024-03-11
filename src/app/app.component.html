@@ -1,7 +1,7 @@
+<app-header-menu></app-header-menu>
 
+<app-home-cta></app-home-cta>
 
-<div class="container my-5">
-  <h1 class="font-one">Move your Direct Debits to your Credit Card now!</h1>
-</div>
+<app-cta-content-cards [sectionData]="howItWorks$ | async"></app-cta-content-cards>
 
 <router-outlet></router-outlet>

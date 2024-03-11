@@ -1,0 +1,27 @@
+.main-message {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 88px;
+    letter-spacing: -0.01em;
+    line-height: 96px;
+  }
+
+.sub-message {
+   font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 500;
+    color: hotpink;
+    margin-bottom: .7em;
+    font-style: normal;
+    font-size: 30px;
+    letter-spacing: -0.01em;
+    line-height: normal;
+    max-width: 70rem;
+}
+
+.primary-cta {
+  background-color: #40b32e !important;
+  color: white !important;
+}
+

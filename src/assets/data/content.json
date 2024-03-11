@@ -1,0 +1,167 @@
+{
+    "header": {
+        "leftLogoUrl": "./assets/images/credit-card-small-1.svg",
+        "middleLogoUrl": "./assets/images/credit-card-small-1.svg",
+        "headerMenuOptions": [
+            {
+                "name": "Login",
+                "icon": "account_circle",
+                "url": "/login",
+                "toolTip": "Login"
+            },
+            {
+                "name": "Logout",
+                "icon": "face",
+                "url": "/logout",
+                "toolTip": "Logout"
+            },
+            {
+                "name": "Calculate your savings",
+                "icon": "calculate",
+                "url": "/calculate",
+                "toolTip": "Calculate your savings"
+            },
+            {
+                "name": "About",
+                "icon": "info",
+                "url": "/about",
+                "toolTip": "About"
+            }
+        ]
+    },
+    "homeCTA": {
+        "mainMessage": "Move your Direct Debits to your Credit Card today!",
+        "subMessage": "Imagine moving your mortgage, rent or your monthly car payments to your credit card. This dead money will now earn you valuable points/rewards automatically.",
+        "registerButton": {
+            "name": "Register now",
+            "url": "/register"
+        },
+        "calculateButton": {
+            "name": "Calculate your new points",
+            "url": "/calculate"
+        },
+        "reviewButton": {
+            "name": "10x your reward points > check the reviews",
+            "url": "/reviews"
+        },
+        "howItWorks": [
+            {
+                "subTitle": "How it works",
+                "title": "Link your British Airways American Express credit card.",
+                "paragraph": "Move your direct debits to your credit card via our platform and upto 10x your points. Upgrade your flights to business class in no time and fly like a boss.",
+                "list": [
+                    {
+                        "listTitle": "Get your BA AMEX for <b>free</b>.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Boost your points <b>forever</b> for every <b>direct debit</b>.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Moving your Direct Debit to us is simple and easy!",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Pause or cancel at any time",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Get your <b>companion</b> tickets faster.",
+                        "listIcon": "done_outline"
+                    }
+                ],
+                "imageLeft": true,
+                "imageRight": false,
+                "imageUrl": "./assets/images/amex-ba-cc.webp",
+                "ctaButtonText": "Register now",
+                "ctaButtonUrl": "/register",
+                "ctaButtonSubText": "on average only takes 4 minutes"
+            },
+            {
+                "subTitle": "How it works",
+                "title": "We can also put your car payments on credit card too.",
+                "paragraph": "Convenience meets flexibility with the option to pay your car payments using a credit card. By leveraging this method, you gain the freedom to manage your expenses in a way that suits your financial needs.",
+                "list": [
+                    {
+                        "listTitle": "Build and earn massive rewards",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Make this dead money work for you by earning points.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Fraud protection built in every transaction",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Easier financial tracking on those regular car payments",
+                        "listIcon": "done_outline"
+                    }
+                ],
+                "imageLeft": false,
+                "imageRight": true,
+                "imageUrl": "./assets/images/porsche-taycan.jpeg",
+                "ctaButtonText": "Register now",
+                "ctaButtonUrl": "/register",
+                "ctaButtonSubText": "on average only takes 4 minutes"
+            },
+            {
+                "subTitle": "How it works",
+                "title": "Get a FREE automated online valuation today.",
+                "paragraph": "We have built a sophisticated automated online valuation system that is free to use and provide you with a approximate value of your private number plate.",
+                "list": [
+                    {
+                        "listTitle": "Fill in the form, it only takes <b>5mins</b>.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Its <b>FREE</b>, so you can do it for every plate you have.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "We have used all our <b>knowledge</b> & <b>experienece</b> to create a sophisticated algorithm to provide the most <b>accurate</b> valuation for your plate.",
+                        "listIcon": "done_outline"
+                    }
+                ],
+                "imageLeft": true,
+                "imageRight": false,
+                "imageUrl": "./assets/cogs.svg",
+                "ctaButtonText": "Get a FREE valuation now",
+                "ctaButtonUrl": "/valuation",
+                "ctaButtonSubText": "on average only takes 4 minutes"
+            },
+            {
+                "subTitle": "How it works",
+                "title": "Search for your perfect number plate.",
+                "paragraph": "We have thousands of plates to search from with sophisticated filters so you can quickly find your perfect plate.",
+                "list": [
+                    {
+                        "listTitle": "We have the <b>fatstest</b> number plate search you have every seen.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "<b>Sophisticated filters</b> to narrow down your search.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "No <b>middleman</b> and no <b>commission</b> to pay.",
+                        "listIcon": "done_outline"
+                    },
+                    {
+                        "listTitle": "Contact the seller and negotiate <b>directly</b>.",
+                        "listIcon": "done_outline"
+                    }
+                ],
+                "imageLeft": false,
+                "imageRight": true,
+                "imageUrl": "./assets/valuation.svg",
+                "ctaButtonText": "Search now",
+                "ctaButtonUrl": "/number-plate-search",
+                "ctaButtonSubText": "on average only takes 1 minute"
+            }
+        ]
+
+    }
+}
