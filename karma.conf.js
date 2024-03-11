@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/dd-from-your-cc'),
+      dir: require('path').join(__dirname, './coverage/card-shark'),
       subdir: '.',
       reporters: [
         { type: 'html' },
