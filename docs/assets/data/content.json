@@ -183,5 +183,79 @@
             }
         ]
 
+    },
+    "footer": {
+        "heading": "Register for <span class=\"green\">FREE<\/span> today!",
+        "ctaButtons": [{
+                "name": "Register now",
+                "url": "/register"
+            },
+            {
+                "name": "Get Amex",
+                "url": "/get-amex"
+            },
+            {
+                "name": "Learn more",
+                "url": "/learn-more"
+            }
+        ],
+        "logo": "",
+        "address": "Our offices:<br><br>Wootton,<br>Bedfordshire,<br>UK.<br>",
+        "email": "hello@cardshark.io",
+        "socialMedia": [{
+                "name": "Facebook",
+                "icon": "<i class=\"fa fa-facebook\"><\/i>",
+                "url": ""
+            },
+            {
+                "name": "Twitter",
+                "icon": "<i class=\"fa fa-twitter\"><\/i>",
+                "url": ""
+            },
+            {
+                "name": "LinkedIn",
+                "icon": "<i class=\"fa fa-linkedin\"><\/i>",
+                "url": ""
+            },
+            {
+                "name": "Instagram",
+                "icon": "<i class=\"fa fa-instagram\"><\/i>",
+                "url": ""
+            }
+        ],
+        "company": [{
+                "name": "Our Story",
+                "url": "/our-story"
+            },
+            {
+                "name": "Blog",
+                "url": "/blog"
+            },
+            {
+                "name": "How it works",
+                "url": "/how-it-works"
+            },
+            {
+                "name": "Careers",
+                "url": "/careers"
+            },
+            {
+                "name": "Terms & Conditions",
+                "url": "/tandc"
+            },
+            {
+                "name": "Privacy Policy",
+                "url": "/privacy-policy"
+            }
+        ],
+        "help": [{
+                "name": "Contact",
+                "url": ""
+            },
+            {
+                "name": "Support",
+                "url": ""
+            }
+        ]
     }
 }
