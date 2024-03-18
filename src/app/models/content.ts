@@ -1,7 +1,7 @@
 export interface Content {
     header?: Header;
     homeCTA?: HomeCTA;
-    // footer?: Footer;
+    footer?: Footer;
     // createListing?: CreateListing;
     // search?: Search;
 }
@@ -49,4 +49,26 @@ export interface Section {
 export interface List {
     listTitle: string;
     listIcon: string;
+}
+
+export interface Footer {
+    heading: string;
+    ctaButtons: Array<CTAButtons>;
+    logo: string;
+    address: string;
+    email: string;
+    socialMedia: Array<SocialMedia>;
+    company: Array<CompanyLinks>;
+    help: Array<CompanyLinks>;
+}
+
+export interface SocialMedia {
+    name: string;
+    icon: string;
+    url: string;
+}
+
+export interface CompanyLinks {
+    name: string;
+    url: string;
 }

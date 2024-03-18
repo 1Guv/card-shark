@@ -8,6 +8,7 @@ import { HeaderMenuComponent } from './components/header-menu/header-menu.compon
 import { HttpClientModule } from '@angular/common/http';
 import { HomeCtaComponent } from './components/home-cta/home-cta.component';
 import { CtaContentCardsComponent } from './components/cta-content-cards/cta-content-cards.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CtaContentCardsComponent } from './components/cta-content-cards/cta-con
     HeaderMenuComponent,
     HttpClientModule,
     HomeCtaComponent,
-    CtaContentCardsComponent
+    CtaContentCardsComponent,
+    FooterComponent
   ],
   providers: [
     provideAnimationsAsync()
