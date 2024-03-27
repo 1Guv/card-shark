@@ -59,7 +59,7 @@
                         <div class="col-6">
                             <h2 class="link-heading">Company</h2>
                             <div class="d-flex flex-column">
-                                <ng-container *ngFor="let link of (footer$ | async)?.company">
+                                <ng-container>
                                     @for (link of  (footer$ | async)?.company; track $index) {
                                         <a class="my-2 links" href="{{ link.url }}">{{ link.name }}</a>
                                     }
