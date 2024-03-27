@@ -5,7 +5,7 @@
 
 
                 <h1 class="header-menu-logo me-auto">
-                    <div class="">Card Shark</div>
+                    <div class="" [routerLink]="''">Card Shark</div>
                 </h1>
 
                 <!-- <a [routerLink]="'/'">
@@ -17,10 +17,12 @@
                     <div class="d-inline-block d-sm-none">.io</div>
                 </a> -->
 
-                <ng-container *ngFor="let option of (headerMenu$ | async )?.headerMenuOptions; index as i; first as isFirst">
-                    <button mat-icon-button attr.aria-label="{{ option.name }}" matTooltip="{{ option.toolTip }}" [routerLink]="option.name !== 'Valuation' ? option.url : null" [ngClass]="{'ml-auto': isFirst}">
-                        <mat-icon>{{ option.icon }}</mat-icon>
-                    </button>
+                <ng-container>
+                    @for (option of (headerMenu$ | async)?.headerMenuOptions; track $index; let isFirst = $first) {
+                        <button mat-icon-button attr.aria-label="{{ option.name }}" matTooltip="{{ option.toolTip }}" [routerLink]="option.url" [ngClass]="{'ml-auto': isFirst}">
+                            <mat-icon>{{ option.icon }}</mat-icon>
+                        </button>
+                    }
                 </ng-container>
 
             </mat-toolbar>

@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeCtaComponent } from './components/home-cta/home-cta.component';
 import { CtaContentCardsComponent } from './components/cta-content-cards/cta-content-cards.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -21,10 +22,32 @@ import { FooterComponent } from './components/footer/footer.component';
     HttpClientModule,
     HomeCtaComponent,
     CtaContentCardsComponent,
-    FooterComponent
+    FooterComponent,
+    SocialLoginModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              'clientId'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })

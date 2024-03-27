@@ -12,19 +12,19 @@ export class AppComponent implements OnInit {
 
   title = 'Card Shark';
 
-  howItWorks$: Observable<Array<Section>>;
+  // howItWorks$: Observable<Array<Section>>;
 
   constructor(
     private contentService: ContentService
   ) {
-    this.howItWorks$ = this.contentService
-      .content$
-      .pipe(
-        tap(content => {
-          console.log('content', content)
-        }),
-        map(content => content.homeCTA?.howItWorks)
-      ) as Observable<Array<Section>>
+    // this.howItWorks$ = this.contentService
+    //   .content$
+    //   .pipe(
+    //     tap(content => {
+    //       console.log('content', content)
+    //     }),
+    //     map(content => content.homeCTA?.howItWorks)
+    //   ) as Observable<Array<Section>>
    }
 
   ngOnInit(): void {
