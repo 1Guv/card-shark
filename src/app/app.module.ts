@@ -35,13 +35,13 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              'clientId'
+              '100046942959-1tboeqilf5hk379c7613483hp5gld104.apps.googleusercontent.com'
             )
           },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
-          }
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('1667209210477027')
+          // }
         ],
         onError: (err) => {
           console.error(err);

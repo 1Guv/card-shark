@@ -19,7 +19,13 @@
 
                 <ng-container>
                     @for (option of (headerMenu$ | async)?.headerMenuOptions; track $index; let isFirst = $first) {
-                        <button mat-icon-button attr.aria-label="{{ option.name }}" matTooltip="{{ option.toolTip }}" [routerLink]="option.url" [ngClass]="{'ml-auto': isFirst}">
+                        <button
+                            mat-icon-button
+                            attr.aria-label="{{ option.name }}"
+                            matTooltip="{{ option.toolTip }}"
+                            [routerLink]="option.url"
+                            [ngClass]="{'ml-auto': isFirst}"
+                            >
                             <mat-icon>{{ option.icon }}</mat-icon>
                         </button>
                     }

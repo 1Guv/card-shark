@@ -2,6 +2,7 @@ import { SocialAuthService, FacebookLoginProvider, GoogleSigninButtonModule, Soc
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,19 +17,28 @@ import { MatButtonModule } from '@angular/material/button';
 export class LoginComponent {
 
   user: SocialUser | undefined;
+  loggedIn = false;
   GoogleLoginProvider = GoogleLoginProvider;
 
-  constructor(private authService: SocialAuthService) { }
+  constructor(
+    private authService: SocialAuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
+      this.loggedIn = (user != null);
+
+      if (this.loggedIn) {
+        this.router.navigateByUrl('login');
+      }
     });
   }
 
-  signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
+  // signInWithFB(): void {
+  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  // }
 
   signOut(): void {
     this.authService.signOut();
@@ -36,5 +46,9 @@ export class LoginComponent {
 
   refreshGoogleToken(): void {
     this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  googleSignedIn() {
+    console.log('googleSignedIn');
   }
 }
