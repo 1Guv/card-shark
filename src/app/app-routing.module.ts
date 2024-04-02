@@ -6,6 +6,7 @@ import { CtaContentCardsComponent } from './components/cta-content-cards/cta-con
 const routes: Routes = [
   { path: '', component: CtaContentCardsComponent },
   { path: 'login', component: LoginComponent },
+  { path: '**', component: CtaContentCardsComponent },
 ];
 
 @NgModule({
