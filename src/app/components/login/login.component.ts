@@ -3,13 +3,15 @@ import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     MatButtonModule,
-    JsonPipe
+    JsonPipe,
+    GoogleSigninButtonModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

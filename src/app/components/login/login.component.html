@@ -1,11 +1,21 @@
 
 <div class="my-5 d-flex flex-column align-items-center">
 
-    <div id="g_id_onload"
-        data-client_id="100046942959-25ot174n8a9u25almqu6rgp59ag3d1nh.apps.googleusercontent.com"
+    <asl-google-signin-button
+        type="standard"
+        size="large"
+        shape="pill"
+        theme="filled_blue"
+        class="mx-5"
+        >
+    </asl-google-signin-button>
+
+    <!-- <div id="g_id_onload"
+        GoogleSigninButtonDirective
+        data-client_id="100046942959-1tboeqilf5hk379c7613483hp5gld104.apps.googleusercontent.com"
         data-context="signin"
         data-ux_mode="popup"
-        data-login_uri="card-shark/login"
+        data-login_uri="login"
         data-auto_select="true"
         data-itp_support="true">
     </div>
@@ -17,7 +27,7 @@
         data-text="signin_with"
         data-size="large"
         data-logo_alignment="left">
-    </div>
+    </div> -->
 
     <!-- <div class="my-5 mx-5">
         <button mat-raised-button (click)="signInWithFB()">Facebook</button>
