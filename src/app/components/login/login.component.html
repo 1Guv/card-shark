@@ -10,33 +10,14 @@
         >
     </asl-google-signin-button>
 
-    <!-- <div id="g_id_onload"
-        GoogleSigninButtonDirective
-        data-client_id="100046942959-1tboeqilf5hk379c7613483hp5gld104.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="popup"
-        data-login_uri="login"
-        data-auto_select="true"
-        data-itp_support="true">
-    </div>
-
-    <div class="g_id_signin mx-5 w-25"
-        data-type="standard"
-        data-shape="pill"
-        data-theme="filled_blue"
-        data-text="signin_with"
-        data-size="large"
-        data-logo_alignment="left">
-    </div> -->
-
-    <!-- <div class="my-5 mx-5">
-        <button mat-raised-button (click)="signInWithFB()">Facebook</button>
-    </div> -->
-
     <div class="my-5 mx-5">
         <button mat-raised-button [disabled]="!user" (click)="signOut()">Sign Out</button>
     </div>
 
-    <pre class="w-100">{{ user | json }}</pre>
+    <pre class="w-100">
+        <img src="{{ user?.photoUrl }}">
+        {{ loggedIn | json }}
+        {{ user | json }}
+    </pre>
 
 </div>

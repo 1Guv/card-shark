@@ -19,15 +19,38 @@
 
                 <ng-container>
                     @for (option of (headerMenu$ | async)?.headerMenuOptions; track $index; let isFirst = $first) {
-                        <button
-                            mat-icon-button
-                            attr.aria-label="{{ option.name }}"
-                            matTooltip="{{ option.toolTip }}"
-                            [routerLink]="option.url"
-                            [ngClass]="{'ml-auto': isFirst}"
-                            >
-                            <mat-icon>{{ option.icon }}</mat-icon>
-                        </button>
+
+                        @if (!loggedIn() && option.name !== 'Logout') {
+                            <button
+                                mat-icon-button
+                                attr.aria-label="{{ option.name }}"
+                                matTooltip="{{ option.toolTip }}"
+                                [routerLink]="option.url"
+                                [ngClass]="{'ml-auto': isFirst}"
+                                >
+                                <mat-icon>{{ option.icon }}</mat-icon>
+                            </button>
+                        }
+
+                        @if (loggedIn() && option.name !== 'Login') {
+                            <button
+                                mat-icon-button
+                                attr.aria-label="{{ option.name }}"
+                                matTooltip="{{ option.toolTip }}"
+                                [routerLink]="option.url"
+                                [ngClass]="{'ml-auto': isFirst}"
+                                >
+                                @if (currentUser().photoUrl && option.icon === 'face') {
+                                    <mat-icon class="google-user-icon">
+                                        <img class="round" src="{{ currentUser().photoUrl }}">
+                                    </mat-icon>
+                                } @else {
+                                    <mat-icon>{{ option.icon }}</mat-icon>
+                                }
+                            </button>
+                        }
+
+
                     }
                 </ng-container>
 

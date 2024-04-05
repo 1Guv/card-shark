@@ -3,6 +3,7 @@ import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -24,13 +25,18 @@ export class LoginComponent {
 
   constructor(
     private authService: SocialAuthService,
-    private router: Router
+    private router: Router,
+    private loggedInUserService: LoggedInUserService
   ) { }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
+      this.loggedInUserService.setUser(this.user);
+
       this.loggedIn = (user != null);
+
+      this.loggedInUserService.setData(this.loggedIn);
 
       if (this.loggedIn) {
         this.router.navigateByUrl('login');

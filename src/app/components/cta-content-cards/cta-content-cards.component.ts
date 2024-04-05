@@ -36,7 +36,7 @@ export class CtaContentCardsComponent {
       .content$
       .pipe(
         tap(content => {
-          console.log('content', content)
+          // console.log('content', content)
         }),
         map(content => content.homeCTA?.howItWorks)
       ) as Observable<Array<Section>>
