@@ -1,12 +1,12 @@
 import { Injectable, signal } from '@angular/core';
 import { GoogleUser } from '../models/users';
-
+import { MethodsComponent } from '../shared/methods/methods.component';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoggedInUserService {
+export class LoggedInUserService extends MethodsComponent {
 
   private loggedIn = signal<boolean>(false);
   private currentUser = signal<GoogleUser>({
@@ -20,7 +20,9 @@ export class LoggedInUserService {
     provider: '',
   });
 
-  constructor() {}
+  constructor() {
+    super()
+  }
 
   setData(val: boolean) {
     this.loggedIn.set(val);
@@ -31,6 +33,7 @@ export class LoggedInUserService {
   }
 
   setUser(user: GoogleUser) {
+    user.firstName = this.capitalizeFirstLetter(user.firstName);
     this.currentUser.set(user);
   }
 

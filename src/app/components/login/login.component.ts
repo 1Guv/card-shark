@@ -1,10 +1,9 @@
-import { SocialAuthService, FacebookLoginProvider, GoogleSigninButtonModule, SocialUser, GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { SocialAuthService, GoogleSigninButtonModule, SocialUser, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +38,7 @@ export class LoginComponent {
       this.loggedInUserService.setData(this.loggedIn);
 
       if (this.loggedIn) {
-        this.router.navigateByUrl('login');
+        this.router.navigateByUrl('account-dashboard');
       }
     });
   }
@@ -54,9 +53,5 @@ export class LoginComponent {
 
   refreshGoogleToken(): void {
     this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
-  }
-
-  googleSignedIn() {
-    console.log('googleSignedIn');
   }
 }

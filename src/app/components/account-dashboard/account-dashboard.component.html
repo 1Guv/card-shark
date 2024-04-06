@@ -1,0 +1,15 @@
+
+@if( currentUser() ){
+    <div class="container-fluid my-5">
+        <p>account-dashboard works!</p>
+
+        <h1>User Dashboard</h1>
+
+        <h2>Welcome back {{ currentUser().firstName }}</h2>
+    </div>
+}
+
+
+<pre>
+    {{ currentUser() | json }}
+</pre>

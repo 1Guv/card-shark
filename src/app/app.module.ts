@@ -10,6 +10,7 @@ import { HomeCtaComponent } from './components/home-cta/home-cta.component';
 import { CtaContentCardsComponent } from './components/cta-content-cards/cta-content-cards.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { MethodsComponent } from './shared/methods/methods.component';
 
 @NgModule({
   declarations: [
