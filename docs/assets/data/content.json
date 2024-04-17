@@ -10,10 +10,10 @@
                 "toolTip": "Login"
             },
             {
-                "name": "Logout",
+                "name": "Account Dashboard",
                 "icon": "face",
-                "url": "/logout",
-                "toolTip": "Logout"
+                "url": "/account-dashboard",
+                "toolTip": "Account Dashboard"
             },
             {
                 "name": "Calculate your savings",
