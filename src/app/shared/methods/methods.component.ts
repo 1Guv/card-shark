@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
 })
 export class MethodsComponent {
 
-  capitalizeFirstLetter(word: string) {
-    return  word[0].toUpperCase() + word.slice(1);
+  capitalizeWords(word: string): string {
+    return word.replace(/\b\w/g, l => l.toUpperCase());
   }
 
 }

@@ -20,7 +20,7 @@
                 <ng-container>
                     @for (option of (headerMenu$ | async)?.headerMenuOptions; track $index; let isFirst = $first) {
 
-                        @if (!loggedIn() && option.name !== 'Logout') {
+                        @if (!loggedIn() && option.name !== 'Account Dashboard') {
                             <button
                                 mat-icon-button
                                 attr.aria-label="{{ option.name }}"

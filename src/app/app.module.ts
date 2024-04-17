@@ -11,6 +11,7 @@ import { CtaContentCardsComponent } from './components/cta-content-cards/cta-con
 import { FooterComponent } from './components/footer/footer.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { MethodsComponent } from './shared/methods/methods.component';
+import { provideNgxStripe } from 'ngx-stripe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MethodsComponent } from './shared/methods/methods.component';
     SocialLoginModule
   ],
   providers: [
+    provideNgxStripe(),
     provideAnimationsAsync(),
     {
       provide: 'SocialAuthServiceConfig',

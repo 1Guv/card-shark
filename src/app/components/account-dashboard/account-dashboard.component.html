@@ -1,15 +1,55 @@
 
 @if( currentUser() ){
-    <div class="container-fluid my-5">
-        <p>account-dashboard works!</p>
+    <div class="container-fluid container-color">
+        <div class="py-5">
+            <h1 class="h1-admin-title text-center">Account Dashboard</h1>
 
-        <h1>User Dashboard</h1>
+            <!-- Start > Create a component for the account details -->
+            <mat-card class="my-3">
+                <div class="mx-2 my-2">
+                    <!-- <img class="round" src="{{ currentUser().photoUrl }}"> -->
+                    <mat-card-header>
+                        <mat-card-title>User Details</mat-card-title>
+                        <mat-card-subtitle>Welcome back {{ currentUser().firstName }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="my-3">
+                            <p><span class="tag">Full Name:</span> {{ currentUser().name }}</p>
+                            <p><span class="tag">Email:</span> {{ currentUser().email }}</p>
+                            <p><span class="tag">Provider Name:</span> {{ currentUser().provider }}</p>
+                        </div>
+                    </mat-card-content>
+                </div>
+            </mat-card>
+             <!-- End > Create a component for the account details -->
 
-        <h2>Welcome back {{ currentUser().firstName }}</h2>
+             <!-- Start > Create a component for showing cards -->
+             <mat-card class="my-3">
+                <div class="mx-2 my-2 card-one">
+                    <!-- <img class="round" src="{{ currentUser().photoUrl }}"> -->
+                    <mat-card-header>
+                        <mat-card-title>Cards</mat-card-title>
+                        <mat-card-subtitle>You have no direct debits / subscriptions right now</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="my-3">
+
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary" (click)="onCheckOut('10')">ADD AMEX DIRECT DEBIT / SUBSCRIPTION</button>
+                    </mat-card-actions>
+                </div>
+            </mat-card>
+            <!-- End > Create a component for showing cards -->
+
+            <button class="my-3" color="accent" mat-raised-button [disabled]="!currentUser()" (click)="signOut()">Sign Out</button>
+
+        </div>
     </div>
 }
 
 
-<pre>
+<!-- <pre>
     {{ currentUser() | json }}
-</pre>
+</pre> -->

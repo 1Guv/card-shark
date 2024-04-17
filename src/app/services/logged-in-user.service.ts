@@ -33,7 +33,11 @@ export class LoggedInUserService extends MethodsComponent {
   }
 
   setUser(user: GoogleUser) {
-    user.firstName = this.capitalizeFirstLetter(user.firstName);
+    if (user && user.firstName && user.name) {
+      user.firstName = this.capitalizeWords(user.firstName);
+      user.name = this.capitalizeWords(user.name);
+    }
+
     this.currentUser.set(user);
   }
 

@@ -1,0 +1,62 @@
+
+// Purples
+$titan-white: #f1eeff;
+$cold-purple: #a69fd6;
+$indigo: #6558d3;
+$governor: #4133B7;
+
+// Greys
+$ash: #eaeef6;
+$charcoal: #a0a0a0;
+$void: #141b22;
+
+// Beige/Browns
+$fair-pink: #FFEDEC;
+$apricot: #FBC8BE;
+$coffee: #754D42;
+$del-rio: #917072;
+
+// Greens
+$java: #1FCAC5;
+
+.container-color {
+    background-color: $ash;
+}
+
+.card-one {
+    background-color: $titan-white;
+    border-radius: 4px;
+}
+
+.round {
+    border-radius: 50%;
+    top: 50%;
+    height: 48px;
+    left: 50%;
+    width: 48px;
+    transform: translate(-50%, -50%);
+}
+
+.h1-admin-title {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 69px;
+    letter-spacing: -0.01em;
+    line-height: 96px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: $titan-white;
+    color: $indigo;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.5em 0.75em;
+    line-height: 1;
+    border-radius: 6px;
+    & + * {
+        margin-top: 1rem;
+    }
+}
