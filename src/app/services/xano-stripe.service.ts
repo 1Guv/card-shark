@@ -8,7 +8,7 @@ export class XanoStripeService {
 
   xanoStripeCheckoutApi = 'https://api.stripe.com/v1/checkout/sessions';
 
-  domain = 'http://localhost:4242';
+  domain = 'https://localhost:4242';
 
   header = {
     headers: new HttpHeaders()

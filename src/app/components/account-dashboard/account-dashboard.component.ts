@@ -1,15 +1,14 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { JsonPipe } from '@angular/common';
-import { Component, Signal } from '@angular/core';
+import { Component, Signal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { GoogleUser } from 'src/app/models/users';
 import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
-import { StripeService } from 'ngx-stripe';
-import { XanoStripeService } from 'src/app/services/xano-stripe.service';
-import { switchMap } from 'rxjs';
+import { UserAccountDetailsComponent } from '../user-account-details/user-account-details.component';
+import { UserAccountCcAmexComponent } from '../user-account-cc-amex/user-account-cc-amex.component';
+import { UserAccountCurrentDirectDebitsComponent } from '../user-account-current-direct-debits/user-account-current-direct-debits.component';
+import { DirectDebit } from 'src/app/models/cards';
 
 @Component({
   selector: 'app-account-dashboard',
@@ -17,8 +16,9 @@ import { switchMap } from 'rxjs';
   imports: [
     JsonPipe,
     MatButtonModule,
-    MatCardModule,
-    MatIconModule
+    UserAccountDetailsComponent,
+    UserAccountCcAmexComponent,
+    UserAccountCurrentDirectDebitsComponent
   ],
   templateUrl: './account-dashboard.component.html',
   styleUrl: './account-dashboard.component.scss'
@@ -30,9 +30,7 @@ export class AccountDashboardComponent {
   constructor(
     private loggedInUserService: LoggedInUserService,
     private authService: SocialAuthService,
-    private router: Router,
-    private stripeService: StripeService,
-    private xanoStripeService: XanoStripeService
+    private router: Router
   ) {
     this.currentUser = this.loggedInUserService.getCurrentUser();
   }
@@ -41,24 +39,4 @@ export class AccountDashboardComponent {
     this.authService.signOut();
     this.router.navigateByUrl('');
   }
-
-  onCheckOut(subscriptionPrice: string) {
-    console.log('subscriptionPrice:', subscriptionPrice);
-    this.xanoStripeService
-      .createCheckoutSession(subscriptionPrice)
-      .pipe(
-        switchMap((session: any) => {
-          console.log('session:', session);
-          return this.stripeService.redirectToCheckout({ sessionId: session.id })
-        })
-      )
-      .subscribe(result => {
-        console.log('result:', result);
-        if (result.error) {
-          console.log('Error', result.error.message);
-          alert(result.error.message);
-        }
-      })
-  }
-
 }
