@@ -1,11 +1,14 @@
-import { Component, OnInit, input, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { map } from 'rxjs';
-import { DirectDebit } from 'src/app/models/cards';
-import { GoogleUser } from 'src/app/models/users';
-import { XanoUserDdService } from 'src/app/services/xano-user-dd.service';
+import {Component, input, OnInit, signal} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {map} from 'rxjs';
+import {DirectDebit, MockDirectDebits} from 'src/app/models/cards';
+import {GoogleUser} from 'src/app/models/users';
+import {XanoUserDdService} from 'src/app/services/xano-user-dd.service';
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {DirectDebitsDialogComponent} from "./direct-debits-dialog/direct-debits-dialog/direct-debits-dialog.component";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -13,7 +16,10 @@ import { XanoUserDdService } from 'src/app/services/xano-user-dd.service';
   imports: [
     MatButtonModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   template: `
     <mat-card class="my-3">
@@ -30,7 +36,7 @@ import { XanoUserDdService } from 'src/app/services/xano-user-dd.service';
                         <p><span class="tag">Company:</span> {{ directDebit.companyName }}</p>
                         <p><span class="tag">Reference:</span> {{ directDebit.ref }}</p>
                         <p><span class="tag">Personal Ref:</span> {{ directDebit.refTwo }}</p>
-                        <p><span class="tag">Amount:</span> {{ directDebit.ddAmount }}</p>
+                        <p><span class="tag">Amount:</span> £{{ directDebit.ddAmount }}</p>
                         <p><span class="tag">Bank name:</span> {{ directDebit.bankName }}</p>
                         <p><span class="tag">Last paid:</span> {{ directDebit.lastPaid }}</p>
                         <p><span class="tag">Next payment:</span> {{ directDebit.nextDue }}</p>
@@ -39,7 +45,7 @@ import { XanoUserDdService } from 'src/app/services/xano-user-dd.service';
                 }
               </mat-card-content>
               <mat-card-actions>
-                  <button mat-raised-button color="primary" (click)="onAddDirectDebit()">ADD DIRECT DEBIT</button>
+                  <button mat-raised-button color="primary" (click)="openDirectDebitDialog()">ADD DIRECT DEBIT</button>
               </mat-card-actions>
           </div>
       </mat-card>
@@ -50,13 +56,17 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
 
   currentUser = input<GoogleUser>();
   currentDirectDebits = signal<Array<DirectDebit>>([]);
+  addDirectDebitForm: FormGroup = new FormGroup({});
 
   constructor(
-    private xanoUserDdService: XanoUserDdService
+    private xanoUserDdService: XanoUserDdService,
+    public dialog: MatDialog,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.generateFakeDirectDebitObj(3);
+    this.createAddDDForm();
     // console.log('currentUser', this.currentUser());
     // this.getDirectDebits(this.currentUser()?.id);
   }
@@ -76,25 +86,48 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
   }
 
   generateFakeDirectDebitObj(iteration: number) {
-    const directDebits: Array<DirectDebit> = [];
-    for(let i=0; i<iteration; i++) {
-     let ddObj: DirectDebit = {
-      bankName: 'Halifax',
-      ddAmount: 26,
-      interval: 'monthly',
-      ref: '7075406878-1002',
-      refTwo: 'Voda bill',
-      lastPaid: '',
-      nextDue: '',
-      companyName: 'Vodafone Ltd',
-      ddEnabled: true
-     };
-     directDebits.push(ddObj);
-    }
-    this.currentDirectDebits.set(directDebits);
+    // const directDebits: Array<DirectDebit> = [];
+    // for(let i=0; i<iteration; i++) {
+    //  let ddObj: DirectDebit = {
+    //   bankName: 'Halifax',
+    //   ddAmount: 26,
+    //   interval: 'monthly',
+    //   ref: '7075406878-1002',
+    //   refTwo: 'Voda bill',
+    //   lastPaid: '',
+    //   nextDue: '',
+    //   companyName: 'Vodafone Ltd',
+    //   ddEnabled: true
+    //  };
+    //  directDebits.push(ddObj);
+    // }
+    this.currentDirectDebits.set(MockDirectDebits);
   }
 
-  onAddDirectDebit() {
-    // open a modal
+  openDirectDebitDialog() {
+    const dialogRef = this.dialog.open(DirectDebitsDialogComponent, {
+      data: { form: this.addDirectDebitForm },
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(form => {
+      console.log("form", form.value);
+      if (form.valid) {
+        MockDirectDebits.push(form.value);
+        form.reset();
+      }
+      this.currentDirectDebits.set(MockDirectDebits);
+    })
+  }
+
+  createAddDDForm() {
+    this.addDirectDebitForm = this.formBuilder.group({
+      companyName: ['', [Validators.required]],
+      ref: ['', [Validators.required]],
+      ref2: [''],
+      ddAmount: ['', [Validators.required]],
+      nextDue: ['', [Validators.required]],
+      bankName: ['', [Validators.required]]
+    })
   }
 }
