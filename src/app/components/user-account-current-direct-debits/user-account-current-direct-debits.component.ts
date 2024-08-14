@@ -9,6 +9,7 @@ import {XanoUserDdService} from 'src/app/services/xano-user-dd.service';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {DirectDebitsDialogComponent} from "./direct-debits-dialog/direct-debits-dialog/direct-debits-dialog.component";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -19,7 +20,8 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
     MatIconModule,
     MatDialogModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSlideToggleModule
   ],
   template: `
     <mat-card class="my-3">
@@ -31,8 +33,18 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
                   </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
+
+                <div class="my-3 p-3 shadow rounded bg-warning">
+                  <h2>Summary:</h2>
+
+                  <p><span class="summary-tag">All Total:</span> {{ allTotal }}</p>
+                  <p><span class="summary-tag">Total Enabled:</span> {{ enabledTotal }}</p>
+                  <p><span class="summary-tag">Total Disabled:</span> {{ allTotal - enabledTotal }}</p>
+                </div>
+
                 @for (directDebit of currentDirectDebits(); track $index) {
                   <div class="my-3 p-3 shadow rounded">
+                        <p><mat-slide-toggle (change)="onDirectDebitEnabled($event, directDebit.ddAmount)" labelPosition="before" [(ngModel)]="directDebit.ddEnabled"></mat-slide-toggle></p>
                         <p><span class="tag">Company:</span> {{ directDebit.companyName }}</p>
                         <p><span class="tag">Reference:</span> {{ directDebit.ref }}</p>
                         <p><span class="tag">Personal Ref:</span> {{ directDebit.refTwo }}</p>
@@ -40,7 +52,6 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
                         <p><span class="tag">Bank name:</span> {{ directDebit.bankName }}</p>
                         <p><span class="tag">Last paid:</span> {{ directDebit.lastPaid }}</p>
                         <p><span class="tag">Next payment:</span> {{ directDebit.nextDue }}</p>
-                        <p><span class="tag">Enabled:</span> {{ directDebit.ddEnabled }}</p>
                     </div>
                 }
               </mat-card-content>
@@ -57,6 +68,8 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
   currentUser = input<GoogleUser>();
   currentDirectDebits = signal<Array<DirectDebit>>([]);
   addDirectDebitForm: FormGroup = new FormGroup({});
+  allTotal: number = 0;
+  enabledTotal: number = 0;
 
   constructor(
     private xanoUserDdService: XanoUserDdService,
@@ -67,6 +80,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
   ngOnInit(): void {
     this.generateFakeDirectDebitObj(3);
     this.createAddDDForm();
+    this.calcTotals();
     // console.log('currentUser', this.currentUser());
     // this.getDirectDebits(this.currentUser()?.id);
   }
@@ -129,5 +143,24 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
       nextDue: ['', [Validators.required]],
       bankName: ['', [Validators.required]]
     })
+  }
+
+  calcTotals() {
+    MockDirectDebits.forEach(directDebit => {
+      this.allTotal += directDebit?.ddAmount
+      if (directDebit.ddEnabled) {
+        this.enabledTotal += directDebit.ddAmount;
+      }
+    })
+  }
+
+  onDirectDebitEnabled(event: any, directDebitAmount: number): void {
+    if (event.checked) {
+      this.enabledTotal = this.enabledTotal + directDebitAmount;
+    }
+
+    if (!event.checked) {
+      this.enabledTotal = this.enabledTotal - directDebitAmount;
+    }
   }
 }

@@ -14,3 +14,17 @@ $indigo: #6558d3;
         margin-top: 1rem;
     }
 }
+
+.summary-tag {
+  display: inline-block;
+  background-color: white;
+  color: darkblue;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.5em 0.75em;
+  line-height: 1;
+  border-radius: 6px;
+  & + * {
+    margin-top: 1rem;
+  }
+}

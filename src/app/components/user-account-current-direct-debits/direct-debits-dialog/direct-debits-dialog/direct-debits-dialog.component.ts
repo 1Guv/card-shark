@@ -1,10 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import {MatCardModule} from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
-import {MAT_DIALOG_DATA, MatDialogClose, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogClose} from "@angular/material/dialog";
 import {JsonPipe} from "@angular/common";
-import {DIALOG_DATA} from "@angular/cdk/dialog";
-import {FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
@@ -63,9 +62,6 @@ import {MatIcon} from "@angular/material/icon";
                   </mat-form-field>
               </div>
             </form>
-<!--            <pre>-->
-<!--              Data > {{data.form.value | json}}-->
-<!--            </pre>-->
           </div>
         </mat-card-content>
         <mat-card-actions class="d-flex flex-row-reverse">
@@ -89,5 +85,4 @@ export class DirectDebitsDialogComponent {
   ) {
   }
 
-  onAddDirectDebit() {}
 }

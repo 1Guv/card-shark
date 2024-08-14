@@ -1,28 +1,46 @@
-.main-message {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    font-size: 88px;
-    letter-spacing: -0.01em;
-    line-height: 96px;
-    max-width: 95rem;
-}
-
-.sub-message {
-   font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 500;
-    color: hotpink;
-    margin-bottom: .7em;
-    font-style: normal;
-    font-size: 30px;
-    letter-spacing: -0.01em;
-    line-height: normal;
-    max-width: 70rem;
-}
+@import 'src/styles.scss';
 
 .primary-cta {
   background-color: #40b32e !important;
   color: white !important;
+}
+
+@media
+screen and (min-width: 1280px) {
+  .main-message {
+    // title($font_weight, $font_style, $color, $font_size, $letter_spacing, $line_height, $max-width)
+    @include title(800, normal, black, 88px, -0.01em, 96px, 95rem);
+  }
+
+  .sub-message {
+    // title($font_weight, $font_style, $color, $font_size, $letter_spacing, $line_height, $max-width)
+    @include title(500, normal, hotpink, 30px, -0.01em, normal, 70rem);
+  }
+}
+
+@media
+screen and (min-width: 960px) and (max-width: 1279px) {
+  .main-message {
+    // title($font_weight, $font_style, $color, $font_size, $letter_spacing, $line_height, $max-width)
+    @include title(600, normal, black, 66px, -0.01em, 72px, 71rem);
+  }
+
+  .sub-message {
+    // title($font_weight, $font_style, $color, $font_size, $letter_spacing, $line_height, $max-width)
+    @include title(375, normal, hotpink, 22.5px, -0.01em, normal, 52.5rem);
+  }
+}
+
+@media
+screen and (min-width: 250px) and (max-width: 959px) {
+  .main-message {
+    // title($font_weight, $font_style, $color, $font_size, $letter_spacing, $line_height, $max-width)
+    @include title(550, normal, black, 44px, -0.01em, 48px, 35.5rem);
+  }
+
+  .sub-message {
+    // title($font_weight, $font_style, $color, $font_size, $letter_spacing, $line_height, $max-width)
+    @include title(300, normal, hotpink, 15px, -0.01em, normal, 35rem);
+  }
 }
 
