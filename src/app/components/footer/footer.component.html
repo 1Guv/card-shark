@@ -5,7 +5,13 @@
                 <h2 [innerHTML]="(footer$ | async)?.heading" class="flex-grow-1"></h2>
                 <ng-container>
                     @for (button of ((footer$ | async)?.ctaButtons); track $index) {
-                        <button mat-raised-button color="primary" [routerLink]="button.name" class="m-2 first-button">
+                        <button
+                          mat-raised-button
+                          color="primary"
+                          [routerLink]="button.url"
+                          class="m-2 first-button"
+                          (click)="onClickFooterButton(button.name)"
+                        >
                             {{ button.name }}
                         </button>
                     }

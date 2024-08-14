@@ -20,6 +20,7 @@ import { ContentService } from 'src/app/services/content.service';
 export class HomeCtaComponent implements OnInit, OnDestroy {
 
   homeCTA$: Observable<HomeCTA>;
+  amexReferralLink = 'https://www.americanexpress.com/en-gb/referral/intl/ba-classic-credit?CORID=g~U~R~V~I~S~A~G~N~3-1723634348316-1821145434&CPID=100357009&GENCODE=349993189337799&XL=MNMNS&ref=gURVISAGN3&v=2';
 
   constructor(private contentService: ContentService) {
     this.homeCTA$ = this.contentService

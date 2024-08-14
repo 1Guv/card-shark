@@ -29,6 +29,15 @@
                             </button> -->
                         </div>
 
+                      <a href="{{amexReferralLink}}" target="_blank">
+                        <button mat-raised-button
+                                class="my-1 text-left secondary-cta text-center col-12"
+                                (click)="$event"
+                        >
+                          {{ (homeCTA$ | async)?.getAmexButton?.name }}
+                        </button>
+                      </a>
+
                         <!-- <button mat-flat-button
                             color="primary"
                             class="text-left my-2 text-center col-12 col-md-6"

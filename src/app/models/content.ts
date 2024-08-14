@@ -23,6 +23,7 @@ export interface HomeCTA {
     mainMessage: string;
     subMessage: string;
     registerButton: CTAButtons;
+    getAmexButton: CTAButtons;
     calculateButton: CTAButtons;
     reviewButton: CTAButtons;
     howItWorks: Array<Section>;
