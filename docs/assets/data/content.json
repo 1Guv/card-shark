@@ -36,6 +36,10 @@
             "name": "Register now",
             "url": "/register"
         },
+        "getAmexButton": {
+          "name": "Get Amex now",
+          "url": "/get-amex-now"
+        },
         "calculateButton": {
             "name": "Calculate your new points",
             "url": "/calculate"
@@ -191,7 +195,7 @@
                 "url": "/register"
             },
             {
-                "name": "Get Amex Now",
+                "name": "Get Amex",
                 "url": "https://www.americanexpress.com/en-gb/referral/intl/ba-classic-credit?CORID=g~U~R~V~I~S~A~G~N~3-1723633055313-1872969337&CPID=100357009&GENCODE=349993189337799&XL=MNMNS&ref=gURVISAGN3&v=2"
             },
             {
