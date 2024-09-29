@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import {AsyncPipe, NgClass, NgFor, NgIf, NgOptimizedImage} from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
@@ -17,7 +17,8 @@ import { ContentService } from 'src/app/services/content.service';
     RouterModule,
     MatButtonModule,
     HomeCtaComponent,
-    AsyncPipe
+    AsyncPipe,
+    NgOptimizedImage
   ],
   templateUrl: './cta-content-cards.component.html',
   styleUrl: './cta-content-cards.component.scss'
