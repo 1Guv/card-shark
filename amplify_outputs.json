@@ -21,6 +21,7 @@
       "require_numbers": true,
       "require_symbols": true,
       "require_uppercase": true
+    },
     "unauthenticated_identities_enabled": true
   },
   "data": {
