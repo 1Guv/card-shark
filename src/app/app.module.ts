@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -12,10 +11,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { provideNgxStripe } from 'ngx-stripe';
 import { AmplifyAuthenticatorModule } from "@aws-amplify/ui-angular";
-import { Amplify } from 'aws-amplify';
-import outputs from '../../amplify_outputs.json';
+// import { Amplify } from 'aws-amplify';
+// import outputs from '../../amplify_outputs.json';
 
-Amplify.configure(outputs);
+// Amplify.configure(outputs);
 
 @NgModule({
   declarations: [
