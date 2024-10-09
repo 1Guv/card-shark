@@ -10,8 +10,12 @@ import { HomeCtaComponent } from './components/home-cta/home-cta.component';
 import { CtaContentCardsComponent } from './components/cta-content-cards/cta-content-cards.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
-import { MethodsComponent } from './shared/methods/methods.component';
 import { provideNgxStripe } from 'ngx-stripe';
+import { AmplifyAuthenticatorModule } from "@aws-amplify/ui-angular";
+import { Amplify } from 'aws-amplify';
+import outputs from '../../amplify_outputs.json';
+
+Amplify.configure(outputs);
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import { provideNgxStripe } from 'ngx-stripe';
     HomeCtaComponent,
     CtaContentCardsComponent,
     FooterComponent,
-    SocialLoginModule
+    SocialLoginModule,
+    AmplifyAuthenticatorModule
   ],
   providers: [
     provideNgxStripe(),

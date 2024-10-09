@@ -1,14 +1,27 @@
 
 <div class="my-5 d-flex flex-column align-items-center">
 
-    <asl-google-signin-button
-        type="standard"
-        size="large"
-        shape="pill"
-        theme="filled_blue"
-        class="mx-5"
-        >
-    </asl-google-signin-button>
+<!--    <asl-google-signin-button-->
+<!--        type="standard"-->
+<!--        size="large"-->
+<!--        shape="pill"-->
+<!--        theme="filled_blue"-->
+<!--        class="mx-5"-->
+<!--        >-->
+<!--    </asl-google-signin-button>-->
+
+    <br><br>
+
+    <amplify-authenticator>
+      <ng-template
+        amplifySlot="authenticated"
+        let-user="user"
+        let-signOut="signOut"
+      >
+        <h1>Welcome {{ user.username }}!</h1>
+        <button (click)="signOut()">Sign Out</button>
+      </ng-template>
+    </amplify-authenticator>
 
     <div class="my-5 mx-5">
         <button mat-raised-button [disabled]="!user" (click)="signOut()">Sign Out</button>

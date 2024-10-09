@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
+import { AmplifyAuthenticatorModule } from "@aws-amplify/ui-angular";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
   imports: [
     MatButtonModule,
     JsonPipe,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    AmplifyAuthenticatorModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
