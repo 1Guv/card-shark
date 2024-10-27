@@ -18,6 +18,7 @@
         let-user="user"
         let-signOut="signOut"
       >
+
         <h1>Welcome {{ user.username }}!</h1>
         <h2>Email {{ user.signInDetails.loginId }}!</h2>
         <pre>{{ user | json }}</pre>
