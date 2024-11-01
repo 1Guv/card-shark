@@ -3,7 +3,7 @@ import { JsonPipe } from '@angular/common';
 import { Component, Signal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { GoogleUser } from 'src/app/models/users';
+import {AWSUser, GoogleUser} from 'src/app/models/users';
 import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
 import { UserAccountDetailsComponent } from '../user-account-details/user-account-details.component';
 import { UserAccountCcAmexComponent } from '../user-account-cc-amex/user-account-cc-amex.component';
@@ -25,7 +25,7 @@ import { DirectDebit } from 'src/app/models/cards';
 })
 export class AccountDashboardComponent {
 
-  currentUser: Signal<GoogleUser>;
+  currentUser: Signal<GoogleUser | AWSUser>;
 
   constructor(
     private loggedInUserService: LoggedInUserService,
@@ -36,7 +36,8 @@ export class AccountDashboardComponent {
   }
 
   signOut(): void {
-    this.authService.signOut();
-    this.router.navigateByUrl('');
+    // this.authService.signOut();
+    this.loggedInUserService.loggedIn.set(false);
+    this.router.navigateByUrl('login');
   }
 }

@@ -18,15 +18,11 @@
         let-user="user"
         let-signOut="signOut"
       >
-
-        <h1>Welcome {{ user.username }}!</h1>
-        <h2>Email {{ user.signInDetails.loginId }}!</h2>
-        <pre>{{ user | json }}</pre>
-        <button (click)="signOut()">Sign Out</button>
+        <h1>Welcome {{ user.signInDetails.loginId }}!</h1>
+        <button mat-raised-button color="primary" (click)="onAccountDashboard(user)">Go to Account</button>
+<!--        <button mat-raised-button color="primary" [routerLink]="'account-dashboard'">Go to Account</button>-->
+        <br><br><br>
+        <button mat-raised-button (click)="signOut()">Sign Out</button>
       </ng-template>
     </amplify-authenticator>
-
-<!--    <div class="my-5 mx-5">-->
-<!--        <button mat-raised-button [disabled]="!user" (click)="signOut()">Sign Out</button>-->
-<!--    </div>-->
 </div>

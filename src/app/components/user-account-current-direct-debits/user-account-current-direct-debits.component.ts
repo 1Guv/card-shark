@@ -4,7 +4,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {map} from 'rxjs';
 import {DirectDebit, MockDirectDebits} from 'src/app/models/cards';
-import {GoogleUser} from 'src/app/models/users';
+import {AWSUser, GoogleUser} from 'src/app/models/users';
 import {XanoUserDdService} from 'src/app/services/xano-user-dd.service';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {DirectDebitsDialogComponent} from "./direct-debits-dialog/direct-debits-dialog/direct-debits-dialog.component";
@@ -65,7 +65,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 })
 export class UserAccountCurrentDirectDebitsComponent implements OnInit{
 
-  currentUser = input<GoogleUser>();
+  currentUser = input<GoogleUser | AWSUser>();
   currentDirectDebits = signal<Array<DirectDebit>>([]);
   addDirectDebitForm: FormGroup = new FormGroup({});
   allTotal: number = 0;

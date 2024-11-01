@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { GoogleUser } from '../models/users';
+import {AWSUser, GoogleUser} from '../models/users';
 import { MethodsComponent } from '../shared/methods/methods.component';
 
 
@@ -8,8 +8,8 @@ import { MethodsComponent } from '../shared/methods/methods.component';
 })
 export class LoggedInUserService extends MethodsComponent {
 
-  private loggedIn = signal<boolean>(false);
-  private currentUser = signal<GoogleUser>({
+  loggedIn = signal<boolean>(false);
+  private currentUser = signal<GoogleUser | AWSUser>({
     idToken: '',
     id: '',
     name: '',
@@ -32,10 +32,21 @@ export class LoggedInUserService extends MethodsComponent {
     return this.loggedIn;
   }
 
-  setUser(user: GoogleUser) {
-    if (user && user.firstName && user.name) {
+  setUser(user: GoogleUser | AWSUser ) {
+    // Google user
+    if (user?.firstName && user?.name) {
       user.firstName = this.capitalizeWords(user.firstName);
       user.name = this.capitalizeWords(user.name);
+    }
+
+    // AWS Amplify User
+    if ("userId" in user) {
+      user.firstName = 'AWS-John';
+      user.lastName = 'AWS-Doe';
+      user.name = 'AWS-John-Doe';
+      user.email = user?.signInDetails?.loginId
+      user.photoUrl = ''
+      user.provider = 'AWS Amplify'
     }
 
     this.currentUser.set(user);

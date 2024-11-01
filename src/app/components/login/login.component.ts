@@ -2,9 +2,10 @@ import { SocialAuthService, GoogleSigninButtonModule, SocialUser, GoogleLoginPro
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
 import { AmplifyAuthenticatorModule } from "@aws-amplify/ui-angular";
+import {AWSUser, GoogleUser} from "../../models/users";
 
 @Component({
   selector: 'app-login',
@@ -13,14 +14,15 @@ import { AmplifyAuthenticatorModule } from "@aws-amplify/ui-angular";
     MatButtonModule,
     JsonPipe,
     GoogleSigninButtonModule,
-    AmplifyAuthenticatorModule
+    AmplifyAuthenticatorModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
 
-  user: SocialUser | undefined;
+  user: SocialUser | undefined | AWSUser;
   loggedIn = false;
   GoogleLoginProvider = GoogleLoginProvider;
 
@@ -31,18 +33,18 @@ export class LoginComponent {
   ) { }
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedInUserService.setUser(this.user);
-
-      this.loggedIn = (user != null);
-
-      this.loggedInUserService.setData(this.loggedIn);
-
-      if (this.loggedIn) {
-        this.router.navigateByUrl('account-dashboard');
-      }
-    });
+    // this.authService.authState.subscribe((user) => {
+    //   this.user = user;
+    //   this.loggedInUserService.setUser(this.user);
+    //
+    //   this.loggedIn = (user != null);
+    //
+    //   this.loggedInUserService.setData(this.loggedIn);
+    //
+    //   if (this.loggedIn) {
+    //     this.router.navigateByUrl('account-dashboard');
+    //   }
+    // });
   }
 
   // signInWithFB(): void {
@@ -53,7 +55,20 @@ export class LoginComponent {
     this.authService.signOut();
   }
 
-  refreshGoogleToken(): void {
-    this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+  // refreshGoogleToken(): void {
+  //   this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+  // }
+
+  onAccountDashboard(user: GoogleUser | AWSUser) {
+    console.log('user', user);
+
+    this.user = user;
+    this.loggedInUserService.setUser(this.user);
+    this.loggedIn = (user != null);
+    this.loggedInUserService.setData(this.loggedIn);
+
+    if (this.loggedIn) {
+      this.router.navigateByUrl('account-dashboard');
+    }
   }
 }

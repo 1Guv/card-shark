@@ -2,7 +2,7 @@ import { Component, Input, Signal, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { GoogleUser } from 'src/app/models/users';
+import {AWSUser, GoogleUser} from 'src/app/models/users';
 
 @Component({
   selector: 'app-user-account-details',
@@ -33,5 +33,5 @@ import { GoogleUser } from 'src/app/models/users';
   styleUrl: './user-account-details.component.scss'
 })
 export class UserAccountDetailsComponent {
-  currentUser = input<GoogleUser>();
+  currentUser = input<GoogleUser | AWSUser>();
 }

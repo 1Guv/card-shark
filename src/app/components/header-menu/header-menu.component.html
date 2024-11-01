@@ -40,9 +40,9 @@
                                 [routerLink]="option.url"
                                 [ngClass]="{'ml-auto': isFirst}"
                                 >
-                                @if (currentUser().photoUrl && option.icon === 'face') {
+                                @if (currentUser()?.photoUrl && option.icon === 'face') {
                                     <mat-icon class="google-user-icon">
-                                        <img class="round" src="{{ currentUser().photoUrl }}">
+                                        <img class="round" src="{{ currentUser()?.photoUrl }}">
                                     </mat-icon>
                                 } @else {
                                     <mat-icon>{{ option.icon }}</mat-icon>

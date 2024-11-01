@@ -9,6 +9,7 @@ export const auth = defineAuth({
     email: true,
   },
   userAttributes: {
+    // This doesnt work
     "custom:display_name": {
       dataType: "String",
       mutable: true,

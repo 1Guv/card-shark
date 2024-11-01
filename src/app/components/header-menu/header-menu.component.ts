@@ -9,7 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Header } from 'src/app/models/content';
 import { MatButtonModule } from '@angular/material/button';
 import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
-import { GoogleUser } from '../../models/users';
+import {AWSUser, GoogleUser} from '../../models/users';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class HeaderMenuComponent implements OnInit {
 
   headerMenu$: Observable<Header>;
   loggedIn: Signal<boolean>;
-  currentUser: Signal<GoogleUser>;
+  currentUser: Signal<GoogleUser | AWSUser>;
 
   constructor(
     private contentService: ContentService,
