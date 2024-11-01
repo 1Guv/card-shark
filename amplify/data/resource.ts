@@ -7,13 +7,29 @@ specifies that any unauthenticated user can "create", "read", "update",
 and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
+  Customer: a
     .model({
-      content: a.string(),
-      isDone: a.boolean(),
+      directDebitId: a.id().required(),
+      name: a.string(),
+      directDebit: a.belongsTo("DirectDebit", "directDebitId")
+      // Use custom identifiers. By default, it uses an `id: a.id()` field
     })
-    .authorization((allow) => [allow.owner()]),
-});
+      .identifier(["directDebitId"]),
+  DirectDebit: a
+    .model({
+      customers: a.hasMany("Customer", "directDebitId"),
+      bankName: a.string(),
+      ddAmount: a.integer(),
+      interval: a.string(),
+      ref: a.string(),
+      refTwo: a.string(),
+      lastPaid: a.string(),
+      nextDue: a.string(),
+      companyName: a.string(),
+      ddEnabled: a.boolean(),
+    })
+  })
+  .authorization((allow) => [allow.owner()]);
 
 export type Schema = ClientSchema<typeof schema>;
 

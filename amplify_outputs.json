@@ -34,8 +34,98 @@
     "model_introspection": {
       "version": 1,
       "models": {
-        "Todo": {
-          "name": "Todo",
+        "Customer": {
+          "name": "Customer",
+          "fields": {
+            "directDebitId": {
+              "name": "directDebitId",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": true,
+              "attributes": []
+            },
+            "name": {
+              "name": "name",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "directDebit": {
+              "name": "directDebit",
+              "isArray": false,
+              "type": {
+                "model": "DirectDebit"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "association": {
+                "connectionType": "BELONGS_TO",
+                "targetNames": [
+                  "directDebitId"
+                ]
+              }
+            },
+            "createdAt": {
+              "name": "createdAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": [],
+              "isReadOnly": true
+            },
+            "updatedAt": {
+              "name": "updatedAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": [],
+              "isReadOnly": true
+            }
+          },
+          "syncable": true,
+          "pluralName": "Customers",
+          "attributes": [
+            {
+              "type": "model",
+              "properties": {}
+            },
+            {
+              "type": "key",
+              "properties": {
+                "fields": [
+                  "directDebitId"
+                ]
+              }
+            },
+            {
+              "type": "auth",
+              "properties": {
+                "rules": [
+                  {
+                    "provider": "userPools",
+                    "ownerField": "owner",
+                    "allow": "owner",
+                    "identityClaim": "cognito:username",
+                    "operations": [
+                      "create",
+                      "update",
+                      "delete",
+                      "read"
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "primaryKeyInfo": {
+            "isCustomPrimaryKey": true,
+            "primaryKeyFieldName": "directDebitId",
+            "sortKeyFieldNames": []
+          }
+        },
+        "DirectDebit": {
+          "name": "DirectDebit",
           "fields": {
             "id": {
               "name": "id",
@@ -44,15 +134,80 @@
               "isRequired": true,
               "attributes": []
             },
-            "content": {
-              "name": "content",
+            "customers": {
+              "name": "customers",
+              "isArray": true,
+              "type": {
+                "model": "Customer"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true,
+              "association": {
+                "connectionType": "HAS_MANY",
+                "associatedWith": [
+                  "directDebitId"
+                ]
+              }
+            },
+            "bankName": {
+              "name": "bankName",
               "isArray": false,
               "type": "String",
               "isRequired": false,
               "attributes": []
             },
-            "isDone": {
-              "name": "isDone",
+            "ddAmount": {
+              "name": "ddAmount",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": false,
+              "attributes": []
+            },
+            "interval": {
+              "name": "interval",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "ref": {
+              "name": "ref",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "refTwo": {
+              "name": "refTwo",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "lastPaid": {
+              "name": "lastPaid",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "nextDue": {
+              "name": "nextDue",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "companyName": {
+              "name": "companyName",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "ddEnabled": {
+              "name": "ddEnabled",
               "isArray": false,
               "type": "Boolean",
               "isRequired": false,
@@ -76,7 +231,7 @@
             }
           },
           "syncable": true,
-          "pluralName": "Todos",
+          "pluralName": "DirectDebits",
           "attributes": [
             {
               "type": "model",
