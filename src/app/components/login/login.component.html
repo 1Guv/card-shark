@@ -1,28 +1,16 @@
 
 <div class="my-5 d-flex flex-column align-items-center">
-
-<!--    <asl-google-signin-button-->
-<!--        type="standard"-->
-<!--        size="large"-->
-<!--        shape="pill"-->
-<!--        theme="filled_blue"-->
-<!--        class="mx-5"-->
-<!--        >-->
-<!--    </asl-google-signin-button>-->
-
-    <br><br>
-
-    <amplify-authenticator>
-      <ng-template
-        amplifySlot="authenticated"
-        let-user="user"
-        let-signOut="signOut"
-      >
-        <h1>Welcome {{ user.signInDetails.loginId }}!</h1>
-        <button mat-raised-button color="primary" (click)="onAccountDashboard(user)">Go to Account</button>
-<!--        <button mat-raised-button color="primary" [routerLink]="'account-dashboard'">Go to Account</button>-->
-        <br><br><br>
-        <button mat-raised-button (click)="signOut()">Sign Out</button>
-      </ng-template>
-    </amplify-authenticator>
+  <div class="auth-container">
+    <h2>Login</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required>
+      </div>
+      <button type="submit">Login</button>
+      <p>Don't have an account? <a routerLink="/register">Register</a></p>
+    </form>
+  </div>
 </div>

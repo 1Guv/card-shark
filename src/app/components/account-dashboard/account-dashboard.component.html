@@ -1,23 +1,23 @@
 
-@if( currentUser() ){
+@if( currentUser$() ){
     <div class="container-fluid container-color">
         <div class="py-5">
             <h1 class="h1-admin-title text-center">Account Dashboard</h1>
 
-            <app-user-account-details [currentUser]="currentUser()"></app-user-account-details>
+            <app-user-account-details [currentUser]="currentUser$()"></app-user-account-details>
 
             <app-user-account-cc-amex [currentAmex]="[]"></app-user-account-cc-amex>
 
             <!-- <app-user-account-current-direct-debits [currentDirectDebits]="currentDirectDebits()"></app-user-account-current-direct-debits> -->
-            <app-user-account-current-direct-debits [currentUser]="currentUser()"></app-user-account-current-direct-debits>
+            <app-user-account-current-direct-debits [currentUser]="currentUser$()"></app-user-account-current-direct-debits>
 
-            <button class="my-3" color="accent" mat-raised-button [disabled]="!currentUser()" (click)="signOut()">Sign Out</button>
+            <button class="my-3" color="accent" mat-raised-button [disabled]="!currentUser$()" (click)="signOut()">Sign Out</button>
 
         </div>
     </div>
 }
 
 
-<!-- <pre>
-    {{ currentUser() | json }}
-</pre> -->
+<pre>
+    {{ currentUser$() | json }}
+</pre>

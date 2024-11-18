@@ -1,11 +1,11 @@
-import { SocialAuthService, GoogleSigninButtonModule, SocialUser, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterLink, RouterModule} from '@angular/router';
 import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
-import { AmplifyAuthenticatorModule } from "@aws-amplify/ui-angular";
 import {AWSUser, GoogleUser} from "../../models/users";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -13,24 +13,39 @@ import {AWSUser, GoogleUser} from "../../models/users";
   imports: [
     MatButtonModule,
     JsonPipe,
-    GoogleSigninButtonModule,
-    AmplifyAuthenticatorModule,
-    RouterLink
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
 
-  user: SocialUser | undefined | AWSUser;
-  loggedIn = false;
-  GoogleLoginProvider = GoogleLoginProvider;
+  email: string = '';
+  password: string = '';
 
   constructor(
-    private authService: SocialAuthService,
-    private router: Router,
-    private loggedInUserService: LoggedInUserService
-  ) { }
+    private authService: AuthService,
+    private router: Router) {}
+
+  async onSubmit() {
+    try {
+      await this.authService.login(this.email, this.password);
+      await this.router.navigate(['/account-dashboard']);
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  }
+
+  // user: SocialUser | undefined | AWSUser;
+  loggedIn = false;
+
+  // constructor(
+  //   private router: Router,
+  //   // private loggedInUserService: LoggedInUserService
+  // ) { }
 
   ngOnInit() {
     // this.authService.authState.subscribe((user) => {
@@ -52,7 +67,6 @@ export class LoginComponent {
   // }
 
   signOut(): void {
-    this.authService.signOut();
   }
 
   // refreshGoogleToken(): void {
@@ -60,15 +74,15 @@ export class LoginComponent {
   // }
 
   onAccountDashboard(user: GoogleUser | AWSUser) {
-    console.log('user', user);
-
-    this.user = user;
-    this.loggedInUserService.setUser(this.user);
-    this.loggedIn = (user != null);
-    this.loggedInUserService.setData(this.loggedIn);
-
-    if (this.loggedIn) {
-      this.router.navigateByUrl('account-dashboard');
-    }
+    // console.log('user', user);
+    //
+    // // this.user = user;
+    // // this.loggedInUserService.setUser(this.user);
+    // this.loggedIn = (user != null);
+    // this.loggedInUserService.setData(this.loggedIn);
+    //
+    // if (this.loggedIn) {
+    //   this.router.navigateByUrl('account-dashboard');
+    // }
   }
 }

@@ -33,5 +33,5 @@ import {AWSUser, GoogleUser} from 'src/app/models/users';
   styleUrl: './user-account-details.component.scss'
 })
 export class UserAccountDetailsComponent {
-  currentUser = input<GoogleUser | AWSUser>();
+  currentUser = input<any>();
 }

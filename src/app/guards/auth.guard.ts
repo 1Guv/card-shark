@@ -1,16 +1,18 @@
 import { Signal, inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { LoggedInUserService } from '../services/logged-in-user.service';
+import {AuthService} from "../services/auth.service";
+import {map} from "rxjs";
 
 export const authGuard: CanActivateFn = (route, state) => {
 
-  const loggedInUserService = inject(LoggedInUserService);
-  let isLoggedIn: Signal<boolean> = loggedInUserService.getData();
   const router = inject(Router);
+  const authService = inject(AuthService);
 
-  if (!isLoggedIn()) {
-    router.navigateByUrl('');
-    return false;
-  }
-  return true;
+  return authService.currentUser$.pipe(
+    map((user) => {
+      if (user) return true;
+      router.navigate(['/login']);
+      return false;
+    })
+  );
 };

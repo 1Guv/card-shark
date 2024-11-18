@@ -2,7 +2,6 @@ import { Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { StripeService } from 'ngx-stripe';
 import { switchMap } from 'rxjs';
 import { XanoStripeService } from 'src/app/services/xano-stripe.service';
 
@@ -40,26 +39,24 @@ export class UserAccountCcAmexComponent {
   currentAmex = input<any>();
 
   constructor(
-    private stripeService: StripeService,
     private xanoStripeService: XanoStripeService
   ) {}
 
   onCheckOut(subscriptionPrice: string) {
     console.log('subscriptionPrice:', subscriptionPrice);
-    this.xanoStripeService
-      .createCheckoutSession(subscriptionPrice)
-      .pipe(
-        switchMap((session: any) => {
-          console.log('session:', session);
-          return this.stripeService.redirectToCheckout({ sessionId: session.id })
-        })
-      )
-      .subscribe(result => {
-        console.log('result:', result);
-        if (result.error) {
-          console.log('Error', result.error.message);
-          alert(result.error.message);
-        }
-      })
+    // this.xanoStripeService
+    //   .createCheckoutSession(subscriptionPrice)
+    //   .pipe(
+    //     switchMap((session: any) => {
+    //       console.log('session:', session);
+    //     })
+    //   )
+    //   .subscribe(result => {
+    //     console.log('result:', result);
+    //     if (result.error) {
+    //       console.log('Error', result.error.message);
+    //       alert(result.error.message);
+    //     }
+    //   })
   }
 }

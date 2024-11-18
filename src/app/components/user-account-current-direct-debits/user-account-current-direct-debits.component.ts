@@ -2,14 +2,16 @@ import {Component, input, OnInit, signal} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import {map} from 'rxjs';
-import {DirectDebit, MockDirectDebits} from 'src/app/models/cards';
+import {map, tap} from 'rxjs';
+import {DirectDebit} from 'src/app/models/cards';
 import {AWSUser, GoogleUser} from 'src/app/models/users';
 import {XanoUserDdService} from 'src/app/services/xano-user-dd.service';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {DirectDebitsDialogComponent} from "./direct-debits-dialog/direct-debits-dialog/direct-debits-dialog.component";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {DirectDebitService} from "../../services/direct-debit.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -52,6 +54,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
                         <p><span class="tag">Bank name:</span> {{ directDebit.bankName }}</p>
                         <p><span class="tag">Last paid:</span> {{ directDebit.lastPaid }}</p>
                         <p><span class="tag">Next payment:</span> {{ directDebit.nextDue }}</p>
+                        <button (click)="deleteDirectDebit(directDebit.id)" class="delete-btn"></button>
                     </div>
                 }
               </mat-card-content>
@@ -63,26 +66,49 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
   `,
   styleUrl: './user-account-current-direct-debits.component.scss'
 })
+
 export class UserAccountCurrentDirectDebitsComponent implements OnInit{
 
-  currentUser = input<GoogleUser | AWSUser>();
+  // client = generateClient<Schema>();
+
+  // currentUser = input<GoogleUser | AWSUser>();
+  currentUser = input<any>();
   currentDirectDebits = signal<Array<DirectDebit>>([]);
   addDirectDebitForm: FormGroup = new FormGroup({});
   allTotal: number = 0;
   enabledTotal: number = 0;
 
+  directDebits: Array<DirectDebit> = [];
+
   constructor(
     private xanoUserDdService: XanoUserDdService,
     public dialog: MatDialog,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private directDebitService: DirectDebitService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-    this.generateFakeDirectDebitObj(3);
     this.createAddDDForm();
-    this.calcTotals();
-    // console.log('currentUser', this.currentUser());
-    // this.getDirectDebits(this.currentUser()?.id);
+    this.getDirectAllDebits();
+  }
+
+  getDirectAllDebits() {
+    this.directDebitService
+      .getDirectDebits()
+      .pipe(tap((directDebits: any) => console.log('dd >', directDebits)))
+      .subscribe((directDebits) => {
+        this.directDebits = directDebits;
+        this.currentDirectDebits.set(directDebits);
+      });
+  }
+
+  async addDirectDebit(newDirectDebit: DirectDebit) {
+    this.directDebitService.addDirectDebit(newDirectDebit);
+  }
+
+  async deleteDirectDebit(directDebitId: string) {
+    await this.directDebitService.deleteDirectDebit(directDebitId);
   }
 
   getDirectDebits(userId: string | undefined) {
@@ -90,13 +116,13 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
       return;
     }
 
-    this.xanoUserDdService.getUserDirectDebit(userId)
-      .pipe(
-        map((directDebits: any) => {
-          this.currentDirectDebits.set(directDebits);
-        })
-      )
-      .subscribe();
+    // this.xanoUserDdService.getUserDirectDebit(userId)
+    //   .pipe(
+    //     map((directDebits: any) => {
+    //       this.currentDirectDebits.set(directDebits);
+    //     })
+    //   )
+    //   .subscribe();
   }
 
   generateFakeDirectDebitObj(iteration: number) {
@@ -115,7 +141,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
     //  };
     //  directDebits.push(ddObj);
     // }
-    this.currentDirectDebits.set(MockDirectDebits);
+    // this.currentDirectDebits.set(MockDirectDebits);
   }
 
   openDirectDebitDialog() {
@@ -127,10 +153,12 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
     dialogRef.afterClosed().subscribe(form => {
       console.log("form", form.value);
       if (form.valid) {
-        MockDirectDebits.push(form.value);
+        // MockDirectDebits.push(form.value);
+        // this.createDirectDebits(form.value);
+        this.addDirectDebit(form.value);
         form.reset();
       }
-      this.currentDirectDebits.set(MockDirectDebits);
+      // this.currentDirectDebits.set(MockDirectDebits);
     })
   }
 
@@ -146,12 +174,12 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
   }
 
   calcTotals() {
-    MockDirectDebits.forEach(directDebit => {
-      this.allTotal += directDebit?.ddAmount
-      if (directDebit.ddEnabled) {
-        this.enabledTotal += directDebit.ddAmount;
-      }
-    })
+    // MockDirectDebits.forEach(directDebit => {
+    //   this.allTotal += directDebit?.ddAmount
+    //   if (directDebit.ddEnabled) {
+    //     this.enabledTotal += directDebit.ddAmount;
+    //   }
+    // })
   }
 
   onDirectDebitEnabled(event: any, directDebitAmount: number): void {
@@ -163,4 +191,23 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
       this.enabledTotal = this.enabledTotal - directDebitAmount;
     }
   }
+
+  // async listDirectDebits() {
+  //
+  //   // try {
+  //   //   this.client.models.DirectDebit.observeQuery().subscribe({
+  //   //     next: ({ items, isSynced }) => {
+  //   //       console.log('items', items);
+  //   //       // this.directDebits = items;
+  //   //       // this.currentDirectDebits.set(items);
+  //   //     },
+  //   //   });
+  //   // } catch (error) {
+  //   //   console.error('error fetching direct debits', error);
+  //   // }
+  // }
+
+  // createDirectDebits(newDirectDebit: DirectDebit): void {
+  //   console.log('newDirectDebit', newDirectDebit);
+  // }
 }

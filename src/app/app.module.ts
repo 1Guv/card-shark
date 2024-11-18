@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
+import {AppRoutingModule, routes} from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
@@ -8,13 +8,28 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeCtaComponent } from './components/home-cta/home-cta.component';
 import { CtaContentCardsComponent } from './components/cta-content-cards/cta-content-cards.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
-import { provideNgxStripe } from 'ngx-stripe';
-import { AmplifyAuthenticatorModule } from "@aws-amplify/ui-angular";
-// import { Amplify } from 'aws-amplify';
-// import outputs from '../../amplify_outputs.json';
+import {provideRouter} from "@angular/router";
+import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
+import {getAuth, provideAuth} from "@angular/fire/auth";
+import {getFirestore, provideFirestore} from "@angular/fire/firestore";
+import {getAnalytics, provideAnalytics} from "@angular/fire/analytics";
 
-// Amplify.configure(outputs);
+const firebaseConfig = {
+  apiKey: "AIzaSyDw-BcCYPJuvZW7FfTOoGSBzzilKPaeNmY",
+  authDomain: "card-shark-1.firebaseapp.com",
+  projectId: "card-shark-1",
+  storageBucket: "card-shark-1.firebasestorage.app",
+  messagingSenderId: "78889961943",
+  appId: "1:78889961943:web:2e4625050f982a66b16392",
+  measurementId: "G-60RF163VQ8"
+  // apiKey: 'AIzaSyAeVTNW-XFjN43u1THCQaSImh5l6-gDmVk',
+  // authDomain: 'login-crud-test.firebaseapp.com',
+  // projectId: 'login-crud-test',
+  // storageBucket: 'login-crud-test.firebasestorage.app',
+  // messagingSenderId: '500388906751',
+  // appId: '1:500388906751:web:7b64c4cc2e59f70e2caeca',
+  // measurementId: 'G-YQ7P50KRDV',
+};
 
 @NgModule({
   declarations: [
@@ -27,34 +42,15 @@ import { AmplifyAuthenticatorModule } from "@aws-amplify/ui-angular";
     HttpClientModule,
     HomeCtaComponent,
     CtaContentCardsComponent,
-    FooterComponent,
-    SocialLoginModule,
-    AmplifyAuthenticatorModule
+    FooterComponent
   ],
   providers: [
-    provideNgxStripe(),
     provideAnimationsAsync(),
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '100046942959-1tboeqilf5hk379c7613483hp5gld104.apps.googleusercontent.com',
-            )
-          },
-          // {
-          //   id: FacebookLoginProvider.PROVIDER_ID,
-          //   provider: new FacebookLoginProvider('1667209210477027')
-          // }
-        ],
-        onError: (err) => {
-          console.error(err);
-        }
-      } as SocialAuthServiceConfig,
-    }
+    provideRouter(routes),
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideAnalytics(() => getAnalytics())
   ],
   bootstrap: [AppComponent]
 })
