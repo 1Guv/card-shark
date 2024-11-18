@@ -55,7 +55,7 @@
                 "paragraph": "Move your direct debits to your credit card via our platform and upto 10x your points. Upgrade your flights to business class in no time and fly like a boss.",
                 "list": [
                     {
-                        "listTitle": "Get CAMPANION tickets mega fast.",
+                        "listTitle": "Get COMPANION tickets mega fast.",
                         "listIcon": "done_outline"
                     },
                     {
@@ -81,7 +81,7 @@
                 ],
                 "imageLeft": true,
                 "imageRight": false,
-                "imageUrl": "./assets/images/amex-ba-cc.webp",
+                "imageUrl": "./assets/images/amex-ba-cc.jpg",
                 "ctaButtonText": "Register now",
                 "ctaButtonUrl": "/register",
                 "ctaButtonSubText": "on average only takes 4 minutes"
@@ -114,7 +114,7 @@
                 ],
                 "imageLeft": false,
                 "imageRight": true,
-                "imageUrl": "./assets/images/porsche-taycan.jpeg",
+                "imageUrl": "./assets/images/porsche-taycan.jpg",
                 "ctaButtonText": "Register now",
                 "ctaButtonUrl": "/register",
                 "ctaButtonSubText": "on average only takes 4 minutes"
@@ -139,7 +139,7 @@
                 ],
                 "imageLeft": true,
                 "imageRight": false,
-                "imageUrl": "./assets/images/houses.jpeg",
+                "imageUrl": "./assets/images/houses.jpg",
                 "ctaButtonText": "Get a FREE valuation now",
                 "ctaButtonUrl": "/valuation",
                 "ctaButtonSubText": "on average only takes 4 minutes"
