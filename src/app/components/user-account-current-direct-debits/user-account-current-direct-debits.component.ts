@@ -151,7 +151,6 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(form => {
-      console.log("form", form.value);
       if (form.valid) {
         // MockDirectDebits.push(form.value);
         // this.createDirectDebits(form.value);
