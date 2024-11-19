@@ -2,10 +2,10 @@ import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {Router, RouterLink, RouterModule} from '@angular/router';
-import { LoggedInUserService } from 'src/app/services/logged-in-user.service';
 import {AWSUser, GoogleUser} from "../../models/users";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -28,7 +28,19 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router) {}
+    private router: Router) {
+
+    this.authService.currentUser$
+      .pipe(
+        map((user: any) => {
+          console.log('user', user);
+          !!user
+            ? this.router.navigate(['/account-dashboard'])
+            : this.router.navigate(['/login']);
+        })
+      )
+      .subscribe();
+  }
 
   async onSubmit() {
     try {
