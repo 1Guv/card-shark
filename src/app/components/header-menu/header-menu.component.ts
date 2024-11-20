@@ -24,7 +24,7 @@ import {AuthService} from "../../services/auth.service";
   templateUrl: './header-menu.component.html',
   styleUrl: './header-menu.component.scss'
 })
-export class HeaderMenuComponent implements OnInit {
+export class HeaderMenuComponent {
 
   currentUser= signal<any>({});
   loggedIn = signal(false);
@@ -50,7 +50,4 @@ export class HeaderMenuComponent implements OnInit {
       )
       .subscribe();
    }
-
-  ngOnInit(): void {}
-
 }

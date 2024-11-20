@@ -58,4 +58,19 @@ export class DirectDebitService {
     );
     return deleteDoc(directDebitRef);
   }
+
+  updateDirectDebit(updatedDirectDebit: Partial<DirectDebit>, directDebitId: string) {
+    return this.authService.currentUser$
+      .pipe(
+        switchMap((user) => {
+          if (!user) return Promise.reject('No user logged in');
+          const directDebitsRef = doc(this.firestore, `direct-debits/${directDebitId}`);
+          updatedDirectDebit.userId = user.uid;
+          updatedDirectDebit.createdAt = new Date();
+          console.log('dd edit>', updatedDirectDebit);
+          return updateDoc(directDebitsRef, updatedDirectDebit);
+        })
+      )
+      .subscribe();
+  }
 }

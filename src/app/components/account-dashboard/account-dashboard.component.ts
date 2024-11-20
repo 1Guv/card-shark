@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import {Component, OnInit, Signal, signal} from '@angular/core';
+import {Component, OnDestroy, OnInit, Signal, signal} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {Router, RouterModule} from '@angular/router';
 import { UserAccountDetailsComponent } from '../user-account-details/user-account-details.component';
@@ -7,7 +7,7 @@ import { UserAccountCcAmexComponent } from '../user-account-cc-amex/user-account
 import { UserAccountCurrentDirectDebitsComponent } from '../user-account-current-direct-debits/user-account-current-direct-debits.component';
 import { DirectDebit } from 'src/app/models/cards';
 import {AuthService} from "../../services/auth.service";
-import {map} from "rxjs";
+import {map, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-account-dashboard',
@@ -23,28 +23,35 @@ import {map} from "rxjs";
   templateUrl: './account-dashboard.component.html',
   styleUrl: './account-dashboard.component.scss'
 })
-export class AccountDashboardComponent implements OnInit{
+export class AccountDashboardComponent implements OnInit, OnDestroy {
 
   currentUser$ = signal({});
+  subs= new Subscription();
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
   }
 
   ngOnInit() {
-    this.authService.currentUser$
-      .pipe(
-        map((user: any) => {
-          this.currentUser$.set(user);
-        })
-      )
-      .subscribe();
+    this.subs.add(
+      this.authService.currentUser$
+        .pipe(
+          map((user: any) => {
+            this.currentUser$.set(user);
+          })
+        )
+        .subscribe()
+    );
   }
 
   async signOut(): Promise<void> {
     await this.authService.logout();
     await this.router.navigateByUrl('/login');
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

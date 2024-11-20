@@ -23,17 +23,12 @@ import { ContentService } from 'src/app/services/content.service';
 export class FooterComponent implements OnInit, OnDestroy {
 
   footer$: Observable<Footer>;
-  subs: Subscription[] = [];
+  subs = new Subscription();
   referralOfferLink = 'https://www.americanexpress.com/en-gb/referral/intl/ba-classic-credit?CORID=g~U~R~V~I~S~A~G~N~3-1723634348316-1821145434&CPID=100357009&GENCODE=349993189337799&XL=MNMNS&ref=gURVISAGN3&v=2'
 
   constructor(
     private contentService: ContentService
   ) {
-    // this.footer$ = this.contentService
-    //   .content$
-    //   .pipe(
-    //     map(content => content.footer)
-    //   ) as Observable<Footer>;
     this.footer$ = this.contentService
       .content$
       .pipe(
@@ -44,7 +39,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   onClickFooterButton(buttonName: string) {
-    this.subs.push(
+    this.subs.add(
       this.footer$
         .pipe(
           map((footer: Footer) => {
@@ -59,6 +54,6 @@ export class FooterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subs.map(sub => sub.unsubscribe());
+    this.subs.unsubscribe();
   }
 }

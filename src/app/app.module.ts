@@ -13,6 +13,7 @@ import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
 import {getAuth, provideAuth} from "@angular/fire/auth";
 import {getFirestore, provideFirestore} from "@angular/fire/firestore";
 import {getAnalytics, provideAnalytics} from "@angular/fire/analytics";
+import {MatNativeDateModule} from "@angular/material/core";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDw-BcCYPJuvZW7FfTOoGSBzzilKPaeNmY",
@@ -22,13 +23,6 @@ const firebaseConfig = {
   messagingSenderId: "78889961943",
   appId: "1:78889961943:web:2e4625050f982a66b16392",
   measurementId: "G-60RF163VQ8"
-  // apiKey: 'AIzaSyAeVTNW-XFjN43u1THCQaSImh5l6-gDmVk',
-  // authDomain: 'login-crud-test.firebaseapp.com',
-  // projectId: 'login-crud-test',
-  // storageBucket: 'login-crud-test.firebasestorage.app',
-  // messagingSenderId: '500388906751',
-  // appId: '1:500388906751:web:7b64c4cc2e59f70e2caeca',
-  // measurementId: 'G-YQ7P50KRDV',
 };
 
 @NgModule({
@@ -42,7 +36,8 @@ const firebaseConfig = {
     HttpClientModule,
     HomeCtaComponent,
     CtaContentCardsComponent,
-    FooterComponent
+    FooterComponent,
+    MatNativeDateModule
   ],
   providers: [
     provideAnimationsAsync(),

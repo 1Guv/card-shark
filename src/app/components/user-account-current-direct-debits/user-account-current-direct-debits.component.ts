@@ -1,8 +1,8 @@
-import {Component, input, OnInit, signal} from '@angular/core';
+import {Component, input, OnDestroy, OnInit, signal} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import {map, tap} from 'rxjs';
+import {map, of, Subscription, tap} from 'rxjs';
 import {DirectDebit} from 'src/app/models/cards';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {DirectDebitsDialogComponent} from "./direct-debits-dialog/direct-debits-dialog/direct-debits-dialog.component";
@@ -10,6 +10,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {DirectDebitService} from "../../services/direct-debit.service";
 import {AuthService} from "../../services/auth.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -22,7 +23,8 @@ import {AuthService} from "../../services/auth.service";
     FormsModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
-    MatIconModule
+    MatIconModule,
+    DatePipe
   ],
   template: `
     <mat-card class="my-3">
@@ -58,8 +60,8 @@ import {AuthService} from "../../services/auth.service";
                         <p><span class="tag">Amount:</span> £{{ directDebit.ddAmount }}</p>
                         <p><span class="tag">Bank name:</span> {{ directDebit.bankName }}</p>
                         <p><span class="tag">Last paid:</span> {{ directDebit.lastPaid }}</p>
-                        <p><span class="tag">Next payment:</span> {{ directDebit.nextDue }}</p>
-<!--                        <button mat-raised-button color="primary" (click)="deleteDirectDebit(directDebit.id)" class="delete-btn">Delete DD</button>-->
+                        <p><span class="tag">Next payment:</span> {{ convertTsToDate(directDebit.nextDue) }}</p>
+                        <button mat-raised-button color="primary" (click)="onEditDirectDebit(directDebit, directDebit.id)" class="edit-btn">Edit</button>
                     </div>
                 }
               </mat-card-content>
@@ -72,7 +74,7 @@ import {AuthService} from "../../services/auth.service";
   styleUrl: './user-account-current-direct-debits.component.scss'
 })
 
-export class UserAccountCurrentDirectDebitsComponent implements OnInit{
+export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestroy {
 
   currentUser = input<any>();
   currentDirectDebits = signal<Array<DirectDebit>>([]);
@@ -80,6 +82,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
   allTotal: number = 0;
   enabledTotal: number = 0;
   directDebits: Array<DirectDebit> = [];
+  subs = new Subscription();
 
   constructor(
     public dialog: MatDialog,
@@ -95,13 +98,17 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
   }
 
   getDirectAllDebits() {
-    this.directDebitService
-      .getDirectDebits()
-      .pipe(tap((directDebits: any) => console.log('dd >', directDebits)))
-      .subscribe((directDebits) => {
-        this.directDebits = directDebits;
-        this.currentDirectDebits.set(directDebits);
-      });
+    this.subs.add(
+      this.directDebitService
+        .getDirectDebits()
+        .pipe(
+          map((directDebits: DirectDebit[]) => {
+            this.directDebits = directDebits;
+            this.currentDirectDebits.set(directDebits);
+          })
+        )
+        .subscribe()
+    );
   }
 
   addDirectDebit(newDirectDebit: DirectDebit) {
@@ -112,15 +119,36 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
     await this.directDebitService.deleteDirectDebit(directDebitId);
   }
 
+  editDirectDebit(directDebit: DirectDebit, directDebitId: string) {
+    this.directDebitService.updateDirectDebit(directDebit, directDebitId);
+  }
+
   openDirectDebitDialog() {
+    this.addDirectDebitForm.reset();
     const dialogRef = this.dialog.open(DirectDebitsDialogComponent, {
-      data: { form: this.addDirectDebitForm },
+      data: { form: this.addDirectDebitForm, add: true, edit: false },
       width: '500px'
     });
 
     dialogRef.afterClosed().subscribe(form => {
-      if (form.valid) {
+      if (form?.valid) {
         this.addDirectDebit(form.value);
+        form.reset();
+      }
+    })
+  }
+
+  onEditDirectDebit(directDebit: DirectDebit, directDebitId: string) {
+    this.addDirectDebitForm.patchValue(directDebit);
+
+    const dialogRef = this.dialog.open(DirectDebitsDialogComponent, {
+      data: { form: this.addDirectDebitForm, add: false, edit: true },
+      width: '500px'
+    })
+
+    dialogRef.afterClosed().subscribe(form => {
+      if (form?.valid) {
+        this.editDirectDebit(form.value, directDebitId);
         form.reset();
       }
     })
@@ -154,5 +182,18 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit{
     if (!event.checked) {
       this.enabledTotal = this.enabledTotal - directDebitAmount;
     }
+  }
+
+  convertTsToDate(timestamp: string | undefined): Date | string {
+    if (!timestamp) return '';
+    if (typeof +timestamp === 'number') {
+      return new Date(+timestamp * 1000).toLocaleDateString();
+    } else {
+      return timestamp;
+    }
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }
