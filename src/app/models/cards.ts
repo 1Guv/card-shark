@@ -11,5 +11,6 @@ export interface DirectDebit {
   companyName: string;
   ddEnabled: boolean;
   createdAt?: Date;
+  updatedAt?: Date;
 }
 

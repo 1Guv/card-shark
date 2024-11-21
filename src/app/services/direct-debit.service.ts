@@ -66,7 +66,7 @@ export class DirectDebitService {
           if (!user) return Promise.reject('No user logged in');
           const directDebitsRef = doc(this.firestore, `direct-debits/${directDebitId}`);
           updatedDirectDebit.userId = user.uid;
-          updatedDirectDebit.createdAt = new Date();
+          updatedDirectDebit.updatedAt = new Date();
           console.log('dd edit>', updatedDirectDebit);
           return updateDoc(directDebitsRef, updatedDirectDebit);
         })
