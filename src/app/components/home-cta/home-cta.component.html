@@ -11,13 +11,23 @@
 
                     <div>
                         <div class="d-flex flex-column align-items-start flex-lg-row align-items-lg-center">
+                          @if (currentUser === null) {
                             <button mat-raised-button
-                                class="my-1 text-left primary-cta text-center col-12"
-                                (click)="$event"
-                                [routerLink]="(homeCTA$ | async)?.registerButton?.url"
-                                >
-                                    {{ (homeCTA$ | async)?.registerButton?.name }}
+                                    class="my-1 text-left primary-cta text-center col-12"
+                                    (click)="$event"
+                                    [routerLink]="(homeCTA$ | async)?.registerButton?.url"
+                            >
+                              {{ (homeCTA$ | async)?.registerButton?.name }}
                             </button>
+                          } @else if (!!currentUser) {
+                            <button mat-raised-button
+                                    class="my-1 text-left primary-cta text-center col-12"
+                                    (click)="$event"
+                                    [routerLink]="'/account-dashboard'"
+                            >
+                              Dashboard
+                            </button>
+                          }
                             <!-- <span class="mx-3">or</span> -->
                             <!-- <button mat-stroked-button
                                 color="accent"
