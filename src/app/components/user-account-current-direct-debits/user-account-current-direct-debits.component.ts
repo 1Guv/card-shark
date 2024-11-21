@@ -2,7 +2,7 @@ import {Component, input, OnDestroy, OnInit, signal} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import {map, of, Subscription, tap} from 'rxjs';
+import {map, Subscription} from 'rxjs';
 import {DirectDebit} from 'src/app/models/cards';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {DirectDebitsDialogComponent} from "./direct-debits-dialog/direct-debits-dialog/direct-debits-dialog.component";
@@ -10,7 +10,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {DirectDebitService} from "../../services/direct-debit.service";
 import {AuthService} from "../../services/auth.service";
-import {DatePipe} from "@angular/common";
+import {DatePipe, DecimalPipe} from "@angular/common";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -24,53 +24,10 @@ import {DatePipe} from "@angular/common";
     ReactiveFormsModule,
     MatSlideToggleModule,
     MatIconModule,
-    DatePipe
+    DatePipe,
+    DecimalPipe
   ],
-  template: `
-    <mat-card class="my-3">
-          <div class="mx-2 my-2 card-one">
-              <mat-card-header>
-                  <mat-card-title>Direct Debits</mat-card-title>
-                  <mat-card-subtitle>
-                      You have {{ currentDirectDebits().length }} direct debits / subscriptions
-                  </mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-
-                <div class="my-3 p-3 shadow rounded bg-warning">
-                  <h2>Summary:</h2>
-
-                  <p><span class="summary-tag">All Total:</span> {{ allTotal }}</p>
-                  <p><span class="summary-tag">Total Enabled:</span> {{ enabledTotal }}</p>
-                  <p><span class="summary-tag">Total Disabled:</span> {{ allTotal - enabledTotal }}</p>
-                </div>
-
-                @for (directDebit of currentDirectDebits(); track $index) {
-                  <div class="my-3 p-3 shadow rounded">
-                        <div class="d-flex flex-row-reverse">
-                          <button mat-mini-fab aria-label="Delete direct debit" (click)="deleteDirectDebit(directDebit.id)">
-                            <mat-icon>delete</mat-icon>
-                          </button>
-                        </div>
-
-                        <p><mat-slide-toggle (change)="onDirectDebitEnabled($event, directDebit.ddAmount)" labelPosition="before" [(ngModel)]="directDebit.ddEnabled"></mat-slide-toggle></p>
-                        <p><span class="tag">Company:</span> {{ directDebit.companyName }}</p>
-                        <p><span class="tag">Reference:</span> {{ directDebit.ref }}</p>
-                        <p><span class="tag">Personal Ref:</span> {{ directDebit.refTwo }}</p>
-                        <p><span class="tag">Amount:</span> £{{ directDebit.ddAmount }}</p>
-                        <p><span class="tag">Bank name:</span> {{ directDebit.bankName }}</p>
-                        <p><span class="tag">Last paid:</span> {{ directDebit.lastPaid }}</p>
-                        <p><span class="tag">Next payment:</span> {{ convertTsToDate(directDebit.nextDue) }}</p>
-                        <button mat-raised-button color="primary" (click)="onEditDirectDebit(directDebit, directDebit.id)" class="edit-btn">Edit</button>
-                    </div>
-                }
-              </mat-card-content>
-              <mat-card-actions>
-                  <button mat-raised-button color="primary" (click)="openDirectDebitDialog()">ADD DIRECT DEBIT</button>
-              </mat-card-actions>
-          </div>
-      </mat-card>
-  `,
+  templateUrl: './user-account-current-direct-debits.component.html',
   styleUrl: './user-account-current-direct-debits.component.scss'
 })
 
@@ -94,7 +51,6 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
   ngOnInit(): void {
     this.createAddDDForm();
     this.getDirectAllDebits();
-    this.calcTotals();
   }
 
   getDirectAllDebits() {
@@ -105,6 +61,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
           map((directDebits: DirectDebit[]) => {
             this.directDebits = directDebits;
             this.currentDirectDebits.set(directDebits);
+            this.calcTotals();
           })
         )
         .subscribe()
@@ -166,15 +123,18 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
   }
 
   calcTotals() {
+    this.allTotal = 0;
+    this.enabledTotal = 0;
+
     this.currentDirectDebits().forEach(directDebit => {
-      this.allTotal += directDebit?.ddAmount
+      this.allTotal += Number(directDebit?.ddAmount);
       if (directDebit.ddEnabled) {
-        this.enabledTotal += directDebit.ddAmount;
+        this.enabledTotal += Number(directDebit.ddAmount);
       }
     })
   }
 
-  onDirectDebitEnabled(event: any, directDebitAmount: number): void {
+  onDirectDebitEnabled(event: any, directDebitAmount: number, directDebit: DirectDebit): void {
     if (event.checked) {
       this.enabledTotal = this.enabledTotal + directDebitAmount;
     }
@@ -182,6 +142,8 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
     if (!event.checked) {
       this.enabledTotal = this.enabledTotal - directDebitAmount;
     }
+    directDebit.ddEnabled = event.checked;
+    this.editDirectDebit(directDebit, directDebit.id);
   }
 
   convertTsToDate(timestamp: string | undefined): Date | string {

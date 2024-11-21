@@ -62,7 +62,7 @@ import {ukBanks} from "../../../../models/banks.model";
 
                   <mat-form-field appearance="fill">
                     <mat-label>Direct Debit Amount</mat-label>
-                    <input matInput placeholder="Fill in direct debit amount" formControlName="ddAmount">
+                    <input type="number" matInput placeholder="Fill in direct debit amount" formControlName="ddAmount">
                   </mat-form-field>
 
                   <mat-form-field>

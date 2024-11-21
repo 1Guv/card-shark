@@ -1,0 +1,51 @@
+<script src="direct-debits-dialog/direct-debits-dialog/direct-debits-dialog.component.ts"></script>
+<mat-card class="my-3">
+  <div class="mx-2 my-2 card-one">
+    <mat-card-header>
+      <mat-card-title>Direct Debits</mat-card-title>
+      <mat-card-subtitle>
+        You have {{ currentDirectDebits().length }} direct debits / subscriptions
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div class="my-3 p-3 shadow rounded bg-warning">
+        <h2>Summary:</h2>
+
+        <p><span class="summary-tag">All Total:</span> £{{ allTotal | number: '1.2-2' }}</p>
+        <p><span class="summary-tag">Total Enabled:</span> £{{ enabledTotal | number: '1.2-2'}}</p>
+        <p><span class="summary-tag">Total Disabled:</span> £{{ (allTotal - enabledTotal) | number: '1.2-2' }}</p>
+      </div>
+
+      @for (directDebit of currentDirectDebits(); track $index) {
+        <div class="my-3 p-3 shadow rounded">
+          <div class="d-flex flex-row-reverse">
+            <button color="secondary" mat-mini-fab aria-label="Edit direct debit" (click)="onEditDirectDebit(directDebit, directDebit.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+          <p><span class="tag">Company:</span> {{ directDebit.companyName }}</p>
+          <p><span class="tag">Reference:</span> {{ directDebit.ref }}</p>
+          <p><span class="tag">Personal Ref:</span> {{ directDebit.refTwo }}</p>
+          <p><span class="tag">Amount:</span> £{{ directDebit.ddAmount }}</p>
+          <p><span class="tag">Bank name:</span> {{ directDebit.bankName }}</p>
+          <p><span class="tag">Last paid:</span> {{ directDebit.lastPaid }}</p>
+          <p><span class="tag">Next payment:</span> {{ convertTsToDate(directDebit.nextDue) }}</p>
+          <p>
+            <span class="tag">Enable this DD: </span>
+            <mat-slide-toggle (change)="onDirectDebitEnabled($event, directDebit.ddAmount, directDebit)" labelPosition="before" [(ngModel)]="directDebit.ddEnabled"></mat-slide-toggle>
+          </p>
+
+          <div class="p-2 bg-light rounded">
+            <button color="warn" mat-mini-fab aria-label="Delete direct debit" (click)="deleteDirectDebit(directDebit.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      }
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="openDirectDebitDialog()">ADD DIRECT DEBIT</button>
+    </mat-card-actions>
+  </div>
+</mat-card>

@@ -44,6 +44,7 @@ export class DirectDebitService {
           const directDebitsRef = collection(this.firestore, 'direct-debits');
           directDebit.userId = user.uid;
           directDebit.createdAt = new Date();
+          directDebit.ddEnabled = false;
           console.log('dd add>', directDebit);
           return addDoc(directDebitsRef, directDebit);
         })
