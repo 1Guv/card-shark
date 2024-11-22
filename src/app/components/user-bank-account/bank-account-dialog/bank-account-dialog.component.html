@@ -1,0 +1,50 @@
+<mat-card>
+  <div class="mx-2 my-2">
+    <mat-card-header>
+      @if (data.add) {
+        <mat-card-title>Add Bank Account</mat-card-title>
+      }
+
+      @if (data.edit) {
+        <mat-card-title>Edit Bank Account</mat-card-title>
+      }
+
+    </mat-card-header>
+    <mat-card-content>
+      <div class="my-3 p-3 shadow rounded">
+        <form [formGroup]="data.form">
+          <div class="d-flex flex-column justify-content-between">
+            <mat-form-field appearance="fill">
+              <mat-label>Account Number</mat-label>
+              <input matInput placeholder="Fill in Account Number" formControlName="accountNumber">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Sort Code</mat-label>
+              <input matInput placeholder="Fill in Sort Code" formControlName="sortCode">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Banks</mat-label>
+              <mat-select formControlName="bankName" required>
+                <mat-option>--</mat-option>
+                @for (bank of ukBanksList; track bank) {
+                  <mat-option [value]="bank">{{bank}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="d-flex flex-row-reverse">
+      <button
+        mat-raised-button color="primary"
+        [disabled]="data.form.invalid"
+        [mat-dialog-close]="data.form" cdkFocusInitial
+      >
+        SAVE
+      </button>
+    </mat-card-actions>
+  </div>
+</mat-card>

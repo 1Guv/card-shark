@@ -6,10 +6,11 @@
 
             <app-user-account-details [currentUser]="currentUser$()"></app-user-account-details>
 
-            <app-user-account-cc-amex [currentAmex]="[]"></app-user-account-cc-amex>
-
-            <!-- <app-user-account-current-direct-debits [currentDirectDebits]="currentDirectDebits()"></app-user-account-current-direct-debits> -->
             <app-user-account-current-direct-debits [currentUser]="currentUser$()"></app-user-account-current-direct-debits>
+
+            <app-user-bank-account [currentUser]="currentUser$()"></app-user-bank-account>
+
+            <app-user-account-cc-amex [currentAmex]="[]"></app-user-account-cc-amex>
 
             <button class="my-3" color="accent" mat-raised-button [disabled]="!currentUser$()" (click)="signOut()">Sign Out</button>
 

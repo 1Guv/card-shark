@@ -1,8 +1,6 @@
-import {Timestamp} from 'firebase/firestore';
+import {ApiBaseFields} from "./api-base-fields.model";
 
-export interface DirectDebit {
-  id: string;
-  userId?: string;
+export interface DirectDebit extends ApiBaseFields{
   bankName: string;
   ddAmount: number;
   interval: string;
@@ -12,6 +10,4 @@ export interface DirectDebit {
   nextDue?: any;
   companyName: string;
   ddEnabled: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
 }

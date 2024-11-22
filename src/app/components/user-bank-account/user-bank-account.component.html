@@ -1,0 +1,32 @@
+<mat-card class="my-3">
+  <div class="mx-2 my-2 card-one">
+    <mat-card-header>
+      <mat-card-title>Bank Accounts</mat-card-title>
+      <mat-card-subtitle>
+        You have {{ currentBankAccounts().length }} Bank Accounts right now!
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      @for (bankAccount of currentBankAccounts(); track $index) {
+        <div class="my-3 p-3 shadow rounded">
+            <div class="d-flex flex-row-reverse">
+              <button color="secondary" mat-mini-fab aria-label="Edit direct debit" (click)="onEditBankAccount(bankAccount, bankAccount.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+            <p><span class="tag">Bank Name:</span> {{ bankAccount.bankName }}</p>
+            <p><span class="tag">Account Number:</span> {{ bankAccount.accountNumber }}</p>
+            <p><span class="tag">Sort Code</span> {{ bankAccount.sortCode }}</p>
+            <div class="p-2 bg-light rounded">
+              <button color="warn" mat-mini-fab aria-label="Delete direct debit" (click)="onDeleteBankAccount(bankAccount.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+        </div>
+      }
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="openBankAccountDialog()">ADD BANK ACCOUNT</button>
+    </mat-card-actions>
+  </div>
+</mat-card>

@@ -19,7 +19,10 @@ import {DirectDebit} from "../models/cards";
   providedIn: 'root',
 })
 export class DirectDebitService {
-  constructor(private firestore: Firestore, private authService: AuthService) {}
+  constructor(
+    private firestore: Firestore,
+    private authService: AuthService
+  ) {}
 
   getDirectDebits(): Observable<DirectDebit[]> {
     return this.authService.currentUser$.pipe(

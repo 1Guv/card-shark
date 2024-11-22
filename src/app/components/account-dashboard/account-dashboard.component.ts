@@ -8,6 +8,7 @@ import { UserAccountCurrentDirectDebitsComponent } from '../user-account-current
 import { DirectDebit } from 'src/app/models/cards';
 import {AuthService} from "../../services/auth.service";
 import {map, Subscription} from "rxjs";
+import {UserBankAccountComponent} from "../user-bank-account/user-bank-account.component";
 
 @Component({
   selector: 'app-account-dashboard',
@@ -18,6 +19,7 @@ import {map, Subscription} from "rxjs";
     UserAccountDetailsComponent,
     UserAccountCcAmexComponent,
     UserAccountCurrentDirectDebitsComponent,
+    UserBankAccountComponent,
     RouterModule
   ],
   templateUrl: './account-dashboard.component.html',
