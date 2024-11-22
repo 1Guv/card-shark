@@ -2,11 +2,11 @@ import {Component, OnInit, signal, Signal} from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
 import { ContentService } from 'src/app/services/content.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Header } from 'src/app/models/content';
+import {Header, HeaderMenuOptions} from 'src/app/models/content';
 import { MatButtonModule } from '@angular/material/button';
 import {AuthService} from "../../services/auth.service";
 
@@ -33,6 +33,7 @@ export class HeaderMenuComponent {
   constructor(
     private contentService: ContentService,
     private authService: AuthService,
+    private router: Router,
   ) {
     this.headerMenu$ = this.contentService
       .content$
@@ -49,5 +50,14 @@ export class HeaderMenuComponent {
         })
       )
       .subscribe();
+   }
+
+   async logout(option: HeaderMenuOptions): Promise<void> {
+    if (option.name === 'Logout') {
+      await this.authService.logout();
+      await this.router.navigateByUrl('');
+    } else {
+      await this.router.navigateByUrl(option.url);
+    }
    }
 }

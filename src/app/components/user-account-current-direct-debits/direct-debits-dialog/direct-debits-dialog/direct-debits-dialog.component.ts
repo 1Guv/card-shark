@@ -88,6 +88,7 @@ import {ukBanks} from "../../../../models/banks.model";
                     </mat-select>
                   </mat-form-field>
               </div>
+<!--              <pre>{{ data.form.value | json }}</pre>-->
             </form>
           </div>
         </mat-card-content>

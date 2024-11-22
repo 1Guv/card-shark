@@ -20,12 +20,12 @@
                 <ng-container>
                     @for (option of (headerMenu$ | async)?.headerMenuOptions; track $index; let isFirst = $first) {
 
-                        @if (!loggedIn() && option.name !== 'Account Dashboard') {
+                        @if (!loggedIn() && option.name !== 'Account Dashboard' && option.name !== 'Logout') {
                             <button
                                 mat-icon-button
                                 attr.aria-label="{{ option.name }}"
                                 matTooltip="{{ option.toolTip }}"
-                                [routerLink]="option.url"
+                                (click)="logout(option)"
                                 [ngClass]="{'ml-auto': isFirst}"
                                 >
                                 <mat-icon>{{ option.icon }}</mat-icon>
@@ -37,7 +37,7 @@
                                 mat-icon-button
                                 attr.aria-label="{{ option.name }}"
                                 matTooltip="{{ option.toolTip }}"
-                                [routerLink]="option.url"
+                                (click)="logout(option)"
                                 [ngClass]="{'ml-auto': isFirst}"
                                 >
                                 @if (currentUser().photoUrl && option.icon === 'face') {

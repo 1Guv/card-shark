@@ -1,3 +1,5 @@
+import {Timestamp} from 'firebase/firestore';
+
 export interface DirectDebit {
   id: string;
   userId?: string;
@@ -7,10 +9,9 @@ export interface DirectDebit {
   ref: string;
   refTwo: string;
   lastPaid?: string;
-  nextDue?: string;
+  nextDue?: any;
   companyName: string;
   ddEnabled: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
-

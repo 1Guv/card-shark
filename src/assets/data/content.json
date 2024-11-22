@@ -4,22 +4,28 @@
         "middleLogoUrl": "./assets/images/credit-card-small-1.svg",
         "headerMenuOptions": [
             {
-                "name": "Login",
-                "icon": "account_circle",
-                "url": "/login",
-                "toolTip": "Login"
+              "name": "Login",
+              "icon": "account_circle",
+              "url": "/login",
+              "toolTip": "Login"
             },
             {
-                "name": "Account Dashboard",
-                "icon": "face",
-                "url": "/account-dashboard",
-                "toolTip": "Account Dashboard"
+              "name": "Logout",
+              "icon": "logout",
+              "url": "/",
+              "toolTip": "Logout"
             },
             {
-                "name": "Calculate your savings",
-                "icon": "calculate",
-                "url": "/calculate",
-                "toolTip": "Calculate your savings"
+              "name": "Account Dashboard",
+              "icon": "face",
+              "url": "/account-dashboard",
+              "toolTip": "Account Dashboard"
+            },
+            {
+              "name": "Calculate your savings",
+              "icon": "calculate",
+              "url": "/calculate",
+              "toolTip": "Calculate your savings"
             },
             {
                 "name": "About",

@@ -30,7 +30,7 @@
           <p><span class="tag">Amount:</span> £{{ directDebit.ddAmount }}</p>
           <p><span class="tag">Bank name:</span> {{ directDebit.bankName }}</p>
           <p><span class="tag">Last paid:</span> {{ directDebit.lastPaid }}</p>
-          <p><span class="tag">Next payment:</span> {{ convertTsToDate(directDebit.nextDue) }}</p>
+          <p><span class="tag">Next payment:</span> {{ directDebit.nextDue | date: 'dd/MM/YYYY'}}</p>
           <p>
             <span class="tag">Enable this DD: </span>
             <mat-slide-toggle (change)="onDirectDebitEnabled($event, directDebit.ddAmount, directDebit)" labelPosition="before" [(ngModel)]="directDebit.ddEnabled"></mat-slide-toggle>

@@ -10,7 +10,8 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {DirectDebitService} from "../../services/direct-debit.service";
 import {AuthService} from "../../services/auth.service";
-import {DatePipe, DecimalPipe} from "@angular/common";
+import {DatePipe, DecimalPipe, JsonPipe} from "@angular/common";
+import {Timestamp} from "firebase/firestore";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -25,7 +26,8 @@ import {DatePipe, DecimalPipe} from "@angular/common";
     MatSlideToggleModule,
     MatIconModule,
     DatePipe,
-    DecimalPipe
+    DecimalPipe,
+    JsonPipe
   ],
   templateUrl: './user-account-current-direct-debits.component.html',
   styleUrl: './user-account-current-direct-debits.component.scss'
@@ -38,7 +40,6 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
   addDirectDebitForm: FormGroup = new FormGroup({});
   allTotal: number = 0;
   enabledTotal: number = 0;
-  directDebits: Array<DirectDebit> = [];
   subs = new Subscription();
 
   constructor(
@@ -59,7 +60,12 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
         .getDirectDebits()
         .pipe(
           map((directDebits: DirectDebit[]) => {
-            this.directDebits = directDebits;
+            directDebits.map((directDebit) => {
+              // Put this in serialiser in the future
+              if (directDebit?.nextDue !== undefined && 'seconds' in directDebit.nextDue) {
+                directDebit.nextDue = new Date(directDebit.nextDue.seconds * 1000);
+              }
+            })
             this.currentDirectDebits.set(directDebits);
             this.calcTotals();
           })
@@ -144,15 +150,6 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
     }
     directDebit.ddEnabled = event.checked;
     this.editDirectDebit(directDebit, directDebit.id);
-  }
-
-  convertTsToDate(timestamp: string | undefined): Date | string {
-    if (!timestamp) return '';
-    if (typeof +timestamp === 'number') {
-      return new Date(+timestamp * 1000).toLocaleDateString();
-    } else {
-      return timestamp;
-    }
   }
 
   ngOnDestroy() {
