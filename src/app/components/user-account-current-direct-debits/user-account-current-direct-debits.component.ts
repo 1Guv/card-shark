@@ -12,6 +12,7 @@ import {DirectDebitService} from "../../services/direct-debit.service";
 import {AuthService} from "../../services/auth.service";
 import {DatePipe, DecimalPipe, JsonPipe} from "@angular/common";
 import {Timestamp} from "firebase/firestore";
+import {MatMenuModule} from "@angular/material/menu";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -27,7 +28,8 @@ import {Timestamp} from "firebase/firestore";
     MatIconModule,
     DatePipe,
     DecimalPipe,
-    JsonPipe
+    JsonPipe,
+    MatMenuModule
   ],
   templateUrl: './user-account-current-direct-debits.component.html',
   styleUrl: './user-account-current-direct-debits.component.scss'
