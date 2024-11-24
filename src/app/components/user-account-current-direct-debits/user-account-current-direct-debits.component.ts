@@ -10,9 +10,10 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {DirectDebitService} from "../../services/direct-debit.service";
 import {AuthService} from "../../services/auth.service";
-import {DatePipe, DecimalPipe, JsonPipe} from "@angular/common";
-import {Timestamp} from "firebase/firestore";
+import {DatePipe, DecimalPipe, JsonPipe, NgClass} from "@angular/common";
 import {MatMenuModule} from "@angular/material/menu";
+import {CardMenuComponent} from "../card-menu/card-menu.component";
+import {MatChipsModule} from "@angular/material/chips";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -29,7 +30,10 @@ import {MatMenuModule} from "@angular/material/menu";
     DatePipe,
     DecimalPipe,
     JsonPipe,
-    MatMenuModule
+    MatMenuModule,
+    CardMenuComponent,
+    NgClass,
+    MatChipsModule
   ],
   templateUrl: './user-account-current-direct-debits.component.html',
   styleUrl: './user-account-current-direct-debits.component.scss'
@@ -47,8 +51,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
   constructor(
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private directDebitService: DirectDebitService,
-    private authService: AuthService,
+    private directDebitService: DirectDebitService
   ) {}
 
   ngOnInit(): void {
@@ -103,7 +106,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
     })
   }
 
-  onEditDirectDebit(directDebit: DirectDebit, directDebitId: string) {
+  onEditDirectDebit(directDebit: DirectDebit) {
     this.addDirectDebitForm.patchValue(directDebit);
 
     const dialogRef = this.dialog.open(DirectDebitsDialogComponent, {
@@ -113,7 +116,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
 
     dialogRef.afterClosed().subscribe(form => {
       if (form?.valid) {
-        this.editDirectDebit(form.value, directDebitId);
+        this.editDirectDebit(form.value, directDebit.id);
         form.reset();
       }
     })
@@ -142,16 +145,16 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
     })
   }
 
-  onDirectDebitEnabled(event: any, directDebitAmount: number, directDebit: DirectDebit): void {
-    if (event.checked) {
-      this.enabledTotal = this.enabledTotal + directDebitAmount;
+  onDirectDebitEnabled(data: any): void {
+    if (data.event.checked) {
+      this.enabledTotal = this.enabledTotal + data.item.directDebitAmount;
     }
 
-    if (!event.checked) {
-      this.enabledTotal = this.enabledTotal - directDebitAmount;
+    if (!data.event.checked) {
+      this.enabledTotal = this.enabledTotal - data.item.directDebitAmount;
     }
-    directDebit.ddEnabled = event.checked;
-    this.editDirectDebit(directDebit, directDebit.id);
+    data.item.ddEnabled = data.event.checked;
+    this.editDirectDebit(data.item, data.item.id);
   }
 
   ngOnDestroy() {

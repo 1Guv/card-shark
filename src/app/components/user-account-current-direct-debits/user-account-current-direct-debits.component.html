@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="user-account-current-direct-debits.component.scss">
 <mat-card class="my-3">
   <div class="mx-2 my-2 card-one">
     <mat-card-header>
@@ -19,33 +20,18 @@
       @for (directDebit of currentDirectDebits(); track $index) {
         <div class="my-3 p-3 shadow rounded">
           <div class="d-flex flex-row-reverse">
-<!--            <button color="secondary" mat-mini-fab aria-label="Edit direct debit" (click)="onEditDirectDebit(directDebit, directDebit.id)">-->
-<!--              <mat-icon>edit</mat-icon>-->
-<!--            </button>-->
           </div>
 
           <div class="d-flex">
             <p><span class="tag">Company:</span> {{ directDebit.companyName }}</p>
-            <div class="ms-auto">
-              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Direct Debit menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="onEditDirectDebit(directDebit, directDebit.id)">
-                  <mat-icon>edit</mat-icon>
-                  <span>Edit</span>
-                </button>
-                <button mat-menu-item>
-                  <!--                  <mat-icon>toggle_on</mat-icon>-->
-                  <mat-slide-toggle (change)="onDirectDebitEnabled($event, directDebit.ddAmount, directDebit)" labelPosition="before" [(ngModel)]="directDebit.ddEnabled"></mat-slide-toggle>
-                  <span> Enable DD</span>
-                </button>
-                <button mat-menu-item (click)="deleteDirectDebit(directDebit.id)">
-                  <mat-icon color="warn">delete</mat-icon>
-                  <span>Delete</span>
-                </button>
-              </mat-menu>
-            </div>
+            <app-card-menu
+              class="ms-auto"
+              [item]="directDebit"
+              (editItem)="onEditDirectDebit($event)"
+              (toggleItem)="onDirectDebitEnabled($event)"
+              (deleteItem)="deleteDirectDebit($event)"
+              >
+            </app-card-menu>
           </div>
 
           <p><span class="tag">Reference:</span> {{ directDebit.ref }}</p>
@@ -56,14 +42,13 @@
           <p><span class="tag">Next payment:</span> {{ directDebit.nextDue | date: 'dd/MM/YYYY'}}</p>
           <p>
             <span class="tag">Enable this DD: </span>
-            <mat-slide-toggle (change)="onDirectDebitEnabled($event, directDebit.ddAmount, directDebit)" labelPosition="before" [(ngModel)]="directDebit.ddEnabled"></mat-slide-toggle>
+            <mat-slide-toggle
+              labelPosition="before"
+              [checked]="directDebit.ddEnabled"
+              (change)="onDirectDebitEnabled($event)"
+            >
+            </mat-slide-toggle>
           </p>
-
-<!--          <div class="p-2 bg-light rounded">-->
-<!--            <button color="warn" mat-mini-fab aria-label="Delete direct debit" (click)="deleteDirectDebit(directDebit.id)">-->
-<!--              <mat-icon>delete</mat-icon>-->
-<!--            </button>-->
-<!--          </div>-->
         </div>
       }
     </mat-card-content>
