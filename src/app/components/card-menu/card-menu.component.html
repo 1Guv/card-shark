@@ -7,10 +7,12 @@
       <mat-icon>edit</mat-icon>
       <span>Edit</span>
     </button>
-    <button mat-menu-item>
-      <mat-slide-toggle (change)="onEnable($event, item)" labelPosition="before" [checked]="item?.ddEnabled"></mat-slide-toggle>
-      <span> Enable DD</span>
-    </button>
+    @if (toggleEnabled) {
+      <button mat-menu-item>
+        <mat-slide-toggle (change)="onEnable($event, item)" labelPosition="before" [checked]="item?.ddEnabled"></mat-slide-toggle>
+        <span> Enable DD</span>
+      </button>
+    }
     <br><br>
     <button mat-menu-item (click)="deleteDirectDebit(item?.id)">
       <mat-icon color="warn">delete</mat-icon>

@@ -58,19 +58,16 @@ export class BankAccountService {
   }
 
   deleteFSBankAccount(bankAccountId: string) {
-    const bankAccountRef = doc(
-      this.firestore,
-      `${this.fireBaseBankAccountUrl}/${bankAccountId}`
-    );
+    const bankAccountRef = doc(this.firestore, `${this.fireBaseBankAccountUrl}/${bankAccountId}`);
     return deleteDoc(bankAccountRef);
   }
 
-  updateBankAccount(updatedBankAccount: Partial<BankAccount>, bankAccountId: string) {
+  updateFSBankAccount(updatedBankAccount: Partial<BankAccount>, bankAccountId: string) {
     return this.authService.currentUser$
       .pipe(
         switchMap((user) => {
           if (!user) return Promise.reject('No user logged in');
-          const bankAccountRef = doc(this.firestore, `direct-debits/${bankAccountId}`);
+          const bankAccountRef = doc(this.firestore, `bank-accounts/${bankAccountId}`);
           updatedBankAccount.userId = user.uid;
           updatedBankAccount.updatedAt = new Date();
           return updateDoc(bankAccountRef, updatedBankAccount);

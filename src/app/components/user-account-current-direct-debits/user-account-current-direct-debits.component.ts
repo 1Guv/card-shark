@@ -87,10 +87,6 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
     await this.directDebitService.deleteDirectDebit(directDebitId);
   }
 
-  editDirectDebit(directDebit: DirectDebit, directDebitId: string) {
-    this.directDebitService.updateDirectDebit(directDebit, directDebitId);
-  }
-
   openDirectDebitDialog() {
     this.addDirectDebitForm.reset();
     const dialogRef = this.dialog.open(DirectDebitsDialogComponent, {
@@ -116,7 +112,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
 
     dialogRef.afterClosed().subscribe(form => {
       if (form?.valid) {
-        this.editDirectDebit(form.value, directDebit.id);
+        this.directDebitService.updateDirectDebit(form.value, directDebit.id);
         form.reset();
       }
     })
@@ -154,7 +150,8 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
       this.enabledTotal = this.enabledTotal - data.item.directDebitAmount;
     }
     data.item.ddEnabled = data.event.checked;
-    this.editDirectDebit(data.item, data.item.id);
+    this.directDebitService.updateDirectDebit(data.item, data.item.id);
+    // this.editDirectDebit(data.item, data.item.id);
   }
 
   ngOnDestroy() {

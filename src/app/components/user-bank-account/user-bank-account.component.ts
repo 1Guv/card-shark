@@ -14,6 +14,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {BankAccountDialogComponent} from "./bank-account-dialog/bank-account-dialog.component";
 import {DatePipe} from "@angular/common";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {CardMenuComponent} from "../card-menu/card-menu.component";
 
 @Component({
   selector: 'app-user-bank-account',
@@ -23,7 +24,8 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
     MatCardModule,
     MatIconModule,
     DatePipe,
-    MatSlideToggle
+    MatSlideToggle,
+    CardMenuComponent
   ],
   templateUrl: './user-bank-account.component.html',
   styleUrl: './user-bank-account.component.scss'
@@ -74,7 +76,7 @@ export class UserBankAccountComponent implements OnInit, OnDestroy {
     })
   }
 
-  onEditBankAccount(bankAccount: BankAccount, bankAccountId: string): void {
+  onEditBankAccount(bankAccount: BankAccount): void {
     this.bankAccountForm.patchValue(bankAccount);
 
     const dialogRef = this.dialog.open(BankAccountDialogComponent, {
@@ -84,7 +86,7 @@ export class UserBankAccountComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(form => {
       if (form?.valid) {
-        this.bankAccountService.updateBankAccount(bankAccount, bankAccountId);
+        this.bankAccountService.updateFSBankAccount(form.value, bankAccount.id);
         form.reset();
       }
     })

@@ -16,6 +16,7 @@ import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogClose} from "@angular/material/dialog";
+import {JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'app-bank-account-dialog',
@@ -38,7 +39,8 @@ import {MAT_DIALOG_DATA, MatDialogClose} from "@angular/material/dialog";
     MatSelect,
     MatSuffix,
     ReactiveFormsModule,
-    MatDialogClose
+    MatDialogClose,
+    JsonPipe
   ],
   templateUrl: './bank-account-dialog.component.html',
   styleUrl: './bank-account-dialog.component.scss'

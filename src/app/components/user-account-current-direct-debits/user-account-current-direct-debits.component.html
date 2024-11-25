@@ -27,6 +27,7 @@
             <app-card-menu
               class="ms-auto"
               [item]="directDebit"
+              [toggleEnabled]="true"
               (editItem)="onEditDirectDebit($event)"
               (toggleItem)="onDirectDebitEnabled($event)"
               (deleteItem)="deleteDirectDebit($event)"

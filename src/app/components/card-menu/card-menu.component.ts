@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, input, Input, Output} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
@@ -22,6 +22,7 @@ import {FormsModule} from "@angular/forms";
 })
 export class CardMenuComponent {
   @Input() item!: any;
+  @Input() toggleEnabled = false;
   @Output() editItem = new EventEmitter();
   @Output() deleteItem = new EventEmitter();
   @Output() toggleItem = new EventEmitter();
