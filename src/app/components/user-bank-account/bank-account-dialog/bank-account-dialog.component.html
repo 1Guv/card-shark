@@ -16,12 +16,31 @@
           <div class="d-flex flex-column justify-content-between">
             <mat-form-field appearance="fill">
               <mat-label>Account Number</mat-label>
-              <input matInput placeholder="Fill in Account Number" formControlName="accountNumber">
+              <input
+                type="text"
+                minlength="8"
+                maxlength="8"
+                matInput
+                formControlName="accountNumber"
+                pattern="\d{8}"
+                placeholder="Enter 8-digit account number"
+              >
             </mat-form-field>
 
             <mat-form-field appearance="fill">
               <mat-label>Sort Code</mat-label>
-              <input matInput placeholder="Fill in Sort Code" formControlName="sortCode">
+              <input
+                type="text"
+                matInput
+                formControlName="sortCode"
+                id="sortCode"
+                name="sortCode"
+                (input)="formatSortCode()"
+                maxlength="8"
+                required
+                pattern="\d{2}-\d{2}-\d{2}|\d{6}"
+                placeholder="xx-xx-xx"
+              >
             </mat-form-field>
 
             <mat-form-field>

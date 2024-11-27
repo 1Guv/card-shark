@@ -52,4 +52,12 @@ export class BankAccountDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
   }
+
+  formatSortCode() {
+    let currentSortCode = this.data.form.get('sortCode')?.value;
+    currentSortCode = currentSortCode.replace(/\D/g, '').replace(/(\d{2})(?=\d)/g, '$1-');
+    if (currentSortCode.length >= 8) {
+      this.data.form.get('sortCode')?.setValue(currentSortCode.slice(0, 8));
+    }
+  }
 }
