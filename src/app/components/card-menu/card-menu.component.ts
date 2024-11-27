@@ -4,6 +4,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatSlideToggle, MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {FormsModule} from "@angular/forms";
+import {ToggleEventData} from "../../models/direct-debit.model";
 
 @Component({
   selector: 'app-card-menu',
@@ -32,7 +33,7 @@ export class CardMenuComponent {
   }
 
   onEnable(event: MatSlideToggleChange, item: any) {
-    let data ={
+    let data: ToggleEventData = {
       event: event,
       item: item
     }

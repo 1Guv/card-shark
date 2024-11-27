@@ -14,6 +14,7 @@ import {DatePipe, DecimalPipe, JsonPipe, NgClass} from "@angular/common";
 import {MatMenuModule} from "@angular/material/menu";
 import {CardMenuComponent} from "../card-menu/card-menu.component";
 import {MatChipsModule} from "@angular/material/chips";
+import {ToggleEventData} from "../../models/direct-debit.model";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -141,17 +142,16 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
     })
   }
 
-  onDirectDebitEnabled(data: any): void {
+  onDirectDebitEnabled(data: ToggleEventData): void {
     if (data.event.checked) {
-      this.enabledTotal = this.enabledTotal + data.item.directDebitAmount;
+      this.enabledTotal = this.enabledTotal + data.item.ddAmount;
     }
 
     if (!data.event.checked) {
-      this.enabledTotal = this.enabledTotal - data.item.directDebitAmount;
+      this.enabledTotal = this.enabledTotal - data.item.ddAmount;
     }
     data.item.ddEnabled = data.event.checked;
     this.directDebitService.updateDirectDebit(data.item, data.item.id);
-    // this.editDirectDebit(data.item, data.item.id);
   }
 
   ngOnDestroy() {

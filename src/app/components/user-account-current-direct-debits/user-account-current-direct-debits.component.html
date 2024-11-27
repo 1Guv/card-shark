@@ -46,7 +46,7 @@
             <mat-slide-toggle
               labelPosition="before"
               [checked]="directDebit.ddEnabled"
-              (change)="onDirectDebitEnabled($event)"
+              (change)="onDirectDebitEnabled({ event: $event, item: directDebit })"
             >
             </mat-slide-toggle>
           </p>

@@ -1,5 +1,7 @@
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+
 export interface DirectDebit {
-  id: string;
+  id?: string;
   bankName: string;
   ddAmount: number;
   interval: string;
@@ -9,6 +11,11 @@ export interface DirectDebit {
   nextDue?: string;
   companyName: string;
   ddEnabled: boolean;
-  userId: string;
-  createdAt: Date;
+  userId?: string;
+  createdAt?: Date;
+}
+
+export interface ToggleEventData {
+  event: MatSlideToggleChange,
+  item: DirectDebit | any
 }
