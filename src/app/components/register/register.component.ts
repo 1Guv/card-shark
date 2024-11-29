@@ -1,69 +1,86 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
+import {MatIcon} from "@angular/material/icon";
+import {MatInput} from "@angular/material/input";
+import {passwordMatchValidator} from "../../form-validators/validator-password-match";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, RouterModule],
-  template: `
-    <div class="auth-container">
-      <h2>Register</h2>
-      <form (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
-        </div>
-        <div class="form-group">
-          <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required>
-        </div>
-        <button type="submit">Register</button>
-        <p>Already have an account? <a routerLink="/login">Login</a></p>
-      </form>
-    </div>
-  `,
-  styles: [
-    `
-    .auth-container {
-      max-width: 400px;
-      margin: 2rem auto;
-      padding: 2rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    button {
-      width: 100%;
-      padding: 0.5rem;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-  `,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    RouterModule,
+    MatButton,
+    MatCard,
+    MatCardActions,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    MatFormField,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatLabel,
+    MatSuffix,
+    ReactiveFormsModule,
+    MatError
   ],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  email: string = '';
-  password: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  registerForm: FormGroup = new FormGroup({});
+  fieldTextTypeOne = false;
+  fieldTextTypeTwo = false;
 
-  async onSubmit() {
-    try {
-      await this.authService.register(this.email, this.password);
-      await this.router.navigate(['/todos']);
-    } catch (error) {
-      console.error('Registration failed:', error);
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    this.createRegisterForm();
+  }
+
+  createRegisterForm() {
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+    },
+      { validators: passwordMatchValidator() }
+    )
+  }
+
+  async onRegister() {
+    if (this.registerForm.valid) {
+      try {
+        await this.authService.register(
+          this.registerForm.get('email')?.value,
+          this.registerForm.get('password')?.value
+        );
+        await this.router.navigate(['/account-dashboard']);
+      } catch (error) {
+        console.error('Registration failed:', error);
+      }
+    }
+  }
+
+  onToggleFieldTextType(type: string) {
+    if (type === 'one') {
+      this.fieldTextTypeOne = !this.fieldTextTypeOne;
+    }
+
+    if (type === 'two') {
+      this.fieldTextTypeTwo = !this.fieldTextTypeTwo;
     }
   }
 }

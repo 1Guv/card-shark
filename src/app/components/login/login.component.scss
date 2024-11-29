@@ -1,24 +1,9 @@
-.auth-container {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.primary-cta {
+  background-color: #40b32e !important;
+  color: white !important;
 }
-.form-group {
-  margin-bottom: 1rem;
-}
-input {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-}
-button {
-  width: 100%;
-  padding: 0.5rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+
+.secondary-cta {
+  background-color: blueviolet !important;
+  color: white !important;
 }
