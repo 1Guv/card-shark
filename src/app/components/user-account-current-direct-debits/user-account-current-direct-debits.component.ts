@@ -1,4 +1,4 @@
-import {Component, input, OnDestroy, OnInit, signal} from '@angular/core';
+import {Component, effect, input, OnDestroy, OnInit, signal} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
@@ -15,6 +15,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {CardMenuComponent} from "../card-menu/card-menu.component";
 import {MatChipsModule} from "@angular/material/chips";
 import {ToggleEventData} from "../../models/direct-debit.model";
+import {SharedSignalService} from "../../services/shared-signal.service";
 
 @Component({
   selector: 'app-user-account-current-direct-debits',
@@ -52,8 +53,14 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
   constructor(
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private directDebitService: DirectDebitService
-  ) {}
+    private directDebitService: DirectDebitService,
+    private sharedSignalService: SharedSignalService
+  ) {
+    effect(() => {
+      this.allTotal = this.sharedSignalService.getDirectDebitTotal();
+      this.enabledTotal = this.sharedSignalService.getDirectDebitEnabledTotal();
+    });
+  }
 
   ngOnInit(): void {
     this.createAddDDForm();
@@ -131,15 +138,9 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
   }
 
   calcTotals() {
-    this.allTotal = 0;
-    this.enabledTotal = 0;
-
-    this.currentDirectDebits().forEach(directDebit => {
-      this.allTotal += Number(directDebit?.ddAmount);
-      if (directDebit.ddEnabled) {
-        this.enabledTotal += Number(directDebit.ddAmount);
-      }
-    })
+    this.sharedSignalService.updateCurrentDirectDebitTotals(
+      this.currentDirectDebits()
+    );
   }
 
   onDirectDebitEnabled(data: ToggleEventData): void {

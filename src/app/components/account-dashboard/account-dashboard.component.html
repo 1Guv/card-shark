@@ -6,9 +6,14 @@
 
             <app-user-account-details [currentUser]="currentUser$()"></app-user-account-details>
 
-            <app-user-account-current-direct-debits [currentUser]="currentUser$()"></app-user-account-current-direct-debits>
+            <app-user-account-current-direct-debits
+              [currentUser]="currentUser$()"
+            >
+            </app-user-account-current-direct-debits>
 
             <app-user-bank-account [currentUser]="currentUser$()"></app-user-bank-account>
+
+            <app-action-summary></app-action-summary>
 
             <app-user-account-cc-amex [currentAmex]="[]"></app-user-account-cc-amex>
 

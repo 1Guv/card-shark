@@ -1,0 +1,103 @@
+<mat-card class="my-3">
+  <div class="mx-2 my-2 card-one">
+    <mat-card-header>
+      <mat-card-title></mat-card-title>
+      <mat-card-subtitle>
+<!--        You have {{ currentDirectDebits().length }} direct debits / subscriptions-->
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div class="my-3 p-3 shadow rounded bg-success-subtle">
+        <h2>Action Summary:</h2>
+        <p><span class="summary-tag">All Direct Debits Total:</span> £{{ allTotal | number: '1.2-2' }}</p>
+        <p><span class="summary-tag">Total Direct Debits Enabled:</span> £{{ enabledTotal | number: '1.2-2'}}</p>
+        <p><span class="summary-tag">Total Direct Debit Disabled:</span> £{{ (allTotal - enabledTotal) | number: '1.2-2' }}</p>
+
+        <hr>
+
+        <p>
+          <span class="summary-tag">Amex fee:</span>
+          <span class="summary-tag ms-2">{{ amexFee * 100 | number: '1.1-2' }}%</span>
+          £{{ enabledTotal * amexFee | number: '1.2-2' }}
+        </p>
+
+        <p>
+          <span class="summary-tag">Our fee:</span>
+          <span class="summary-tag ms-2">{{ currentFee * 100 | number: '1.1-2' }}%</span>
+          £{{ enabledTotal * currentFee | number: '1.2-2' }}
+        </p>
+
+        <p>
+          <span class="summary-tag">One off transaction fee:</span>
+          <span class="summary-tag ms-2">{{ transactionFee }}p</span>
+          £{{ transactionFee | number: '1.2-2' }}p
+        </p>
+
+        <p>
+          <span class="summary-tag">Total fees:</span>
+          £{{ (enabledTotal * amexFee) + (enabledTotal * currentFee) + transactionFee | number: '1.2-2' }}p
+        </p>
+
+        <hr>
+
+        <p>
+          <span class="summary-tag">Total Amex points earned</span>
+        </p>
+        <h1>
+          <span class="badge bg-secondary">
+            {{ enabledTotal | number: '1.0-1'}}
+          </span>
+        </h1>
+
+        <hr>
+
+        <p>
+          <span class="summary-tag">Total to be taken on Amex card</span>
+        </p>
+        <h1>
+          <span class="badge bg-secondary">
+            £{{ (enabledTotal + (enabledTotal * amexFee) + (enabledTotal * currentFee) + transactionFee) | number: '1.2-2' }}
+          </span>
+        </h1>
+
+        <hr>
+        <p><span class="summary-tag">Choose bank to transfer too</span></p>
+        <mat-form-field class="w-100">
+          <mat-label>List of your bank accounts</mat-label>
+          <mat-select [(value)]="selectedBankAccount">
+            @for (bank of bankAccounts; track bank) {
+              <mat-option
+                [value]="bank"
+              >
+                {{bank.bankName}}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        @if (selectedBankAccount.bankName !== '') {
+          <mat-card>
+            <mat-card-content>
+              <p>
+                <span class="summary-tag">Bank Name</span>
+                {{ selectedBankAccount.bankName }}
+              </p>
+              <p>
+                <span class="summary-tag">Account Number</span>
+                {{ selectedBankAccount.accountNumber }}
+              </p>
+              <p>
+                <span class="summary-tag">Sort Code</span>
+                {{ selectedBankAccount.sortCode }}
+              </p>
+
+              <hr>
+              <p><span class="summary-tag">Once your funds have been cleared we will transfer £{{ enabledTotal | number: '1.2-2'}} to the bank account chosen above.</span></p>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+    </mat-card-content>
+  </div>
+</mat-card>

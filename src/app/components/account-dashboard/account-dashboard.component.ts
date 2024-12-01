@@ -9,6 +9,7 @@ import { DirectDebit } from 'src/app/models/cards';
 import {AuthService} from "../../services/auth.service";
 import {map, Subscription} from "rxjs";
 import {UserBankAccountComponent} from "../user-bank-account/user-bank-account.component";
+import {ActionSummaryComponent} from "../action-summary/action-summary.component";
 
 @Component({
   selector: 'app-account-dashboard',
@@ -20,7 +21,8 @@ import {UserBankAccountComponent} from "../user-bank-account/user-bank-account.c
     UserAccountCcAmexComponent,
     UserAccountCurrentDirectDebitsComponent,
     UserBankAccountComponent,
-    RouterModule
+    RouterModule,
+    ActionSummaryComponent
   ],
   templateUrl: './account-dashboard.component.html',
   styleUrl: './account-dashboard.component.scss'
