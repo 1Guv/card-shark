@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
-  user
+  user, sendPasswordResetEmail
 } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 
@@ -26,5 +26,9 @@ export class AuthService {
 
   async logout() {
     return await signOut(this.auth);
+  }
+
+  async sendPasswordReset(email: string): Promise<void> {
+    return sendPasswordResetEmail(this.auth, email);
   }
 }

@@ -5,6 +5,7 @@ import { CtaContentCardsComponent } from './components/cta-content-cards/cta-con
 import { AccountDashboardComponent } from './components/account-dashboard/account-dashboard.component';
 import { authGuard } from './guards/auth.guard';
 import {RegisterComponent} from "./components/register/register.component";
+import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 
 export const routes: Routes = [
   { path: '', component: CtaContentCardsComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
     component: AccountDashboardComponent,
     canActivate: [authGuard]
   },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '**', component: CtaContentCardsComponent },
 ];
 
