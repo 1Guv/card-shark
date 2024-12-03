@@ -11,6 +11,7 @@ import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form
 import {MatInput} from "@angular/material/input";
 import {MatDialogClose} from "@angular/material/dialog";
 import {MatIcon} from "@angular/material/icon";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
@@ -37,11 +38,13 @@ export class LoginComponent {
 
   loginForm: FormGroup = new FormGroup({})
   fieldTextType = false;
+  errorMessage= '';
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   )
   {
     this.createLoginForm();
@@ -62,8 +65,9 @@ export class LoginComponent {
       try {
         await this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value)
         await this.router.navigate(['/account-dashboard']);
-      } catch (error) {
-        console.error('Login failed:', error);
+      } catch (error: any) {
+        this.handleError(error);
+        this.snackBar.open(this.errorMessage, 'OK');
       }
     }
   }
@@ -79,14 +83,23 @@ export class LoginComponent {
     this.fieldTextType = !this.fieldTextType;
   }
 
-  // async onSubmit() {
-  //   if (this.loginForm.valid) {
-  //     try {
-  //       await this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value)
-  //       await this.router.navigate(['/account-dashboard']);
-  //     } catch (error) {
-  //       console.error('Login failed:', error);
-  //     }
-  //   }
-  // }
+  handleError(error: any) {
+    switch (error.code) {
+      case 'auth/invalid-credential':
+        this.errorMessage = 'Invalid login credentials. Please try again.';
+        break;
+      case 'auth/user-not-found':
+        this.errorMessage = 'No user found with this email.';
+        break;
+      case 'auth/wrong-password':
+        this.errorMessage = 'Incorrect password. Please try again.';
+        break;
+      case 'auth/network-request-failed':
+        this.errorMessage = 'Network error. Please check your internet connection.';
+        break;
+      default:
+        this.errorMessage = 'An unknown error occurred. Please try again later.';
+        break;
+    }
+  }
 }
