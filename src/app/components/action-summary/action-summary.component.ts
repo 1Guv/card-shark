@@ -35,9 +35,10 @@ export class ActionSummaryComponent implements OnInit, OnDestroy {
 
   allTotal = 0;
   enabledTotal = 0;
-  currentFee: number = 0.02; // 5%
+  currentFeePercentage: number = 0.01; // 0.1% Card Shark percentage fee
+  currentFeeFixed: number = 12.00; // Card Shark fixed fee
   transactionFee: number = 0.25; // 25p
-  amexFee: number = 0.035; // 3.5%
+  amexFee: number = 0.02; // 2.0%
   bankAccounts: Array<BankAccount> = [];
   selectedBankAccount: BankAccount = {
     id: 'x',

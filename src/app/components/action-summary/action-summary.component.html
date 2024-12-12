@@ -34,9 +34,15 @@
           </p>
 
           <p>
-            <span class="summary-tag">Our fee:</span>
-            <span class="summary-tag ms-2">{{ currentFee * 100 | number: '1.1-2' }}%</span>
-            £{{ enabledTotal * currentFee | number: '1.2-2' }}
+            <span class="summary-tag">Our PERCENTAGE fee:</span>
+            <span class="summary-tag ms-2">{{ currentFeePercentage * 100 | number: '1.1-2' }}%</span>
+            £{{ enabledTotal * currentFeePercentage | number: '1.2-2' }}
+          </p>
+
+          <p>
+            <span class="summary-tag">Our FIXED fee:</span>
+            <span class="summary-tag ms-2">£{{ currentFeeFixed | number: '1.1-2' }}</span>
+            £{{ currentFeeFixed | number: '1.2-2' }}
           </p>
 
           <p>
@@ -46,8 +52,13 @@
           </p>
 
           <p>
-            <span class="summary-tag">Total fees:</span>
-            £{{ (enabledTotal * amexFee) + (enabledTotal * currentFee) + transactionFee | number: '1.2-2' }}p
+            <span class="summary-tag">Total fees using percentage:</span>
+            £{{ (enabledTotal * amexFee) + (enabledTotal * currentFeePercentage) + transactionFee | number: '1.2-2' }}p
+          </p>
+
+          <p>
+            <span class="summary-tag">Total fees using fixed fee:</span>
+            £{{ (enabledTotal * amexFee) + currentFeeFixed + transactionFee | number: '1.2-2' }}p
           </p>
 
           <hr>
@@ -64,16 +75,25 @@
           <hr>
 
           <p>
-            <span class="summary-tag">Total to be taken on Amex card</span>
+            <span class="summary-tag">Total to be taken on Amex card with percentage fee</span>
           </p>
           <h1>
           <span class="badge bg-secondary">
-            £{{ (enabledTotal + (enabledTotal * amexFee) + (enabledTotal * currentFee) + transactionFee) | number: '1.2-2' }}
+            £{{ (enabledTotal + (enabledTotal * amexFee) + (enabledTotal * currentFeePercentage) + transactionFee) | number: '1.2-2' }}
+          </span>
+          </h1>
+
+            <p>
+              <span class="summary-tag">Total to be taken on Amex card with fixed fee</span>
+            </p>
+            <h1>
+          <span class="badge bg-secondary">
+            £{{ (enabledTotal + (enabledTotal * amexFee) + currentFeeFixed + transactionFee) | number: '1.2-2' }}
           </span>
           </h1>
 
           <hr>
-          <p><span class="summary-tag">Choose bank to transfer too</span></p>
+          <p><span class="summary-tag">Choose bank to transfer to</span></p>
           <mat-form-field class="w-100">
             <mat-label>List of your bank accounts</mat-label>
             <mat-select [(value)]="selectedBankAccount">
