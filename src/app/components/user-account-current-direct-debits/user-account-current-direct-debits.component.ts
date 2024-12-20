@@ -48,6 +48,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
   addDirectDebitForm: FormGroup = new FormGroup({});
   allTotal: number = 0;
   enabledTotal: number = 0;
+  howManyDirectDebits: number = 0;
   subs = new Subscription();
 
   constructor(
@@ -59,6 +60,7 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
     effect(() => {
       this.allTotal = this.sharedSignalService.getDirectDebitTotal();
       this.enabledTotal = this.sharedSignalService.getDirectDebitEnabledTotal();
+      this.howManyDirectDebits = this.sharedSignalService.getDirectDebitsEnabledForFeeCalc();
     });
   }
 
@@ -146,10 +148,12 @@ export class UserAccountCurrentDirectDebitsComponent implements OnInit, OnDestro
   onDirectDebitEnabled(data: ToggleEventData): void {
     if (data.event.checked) {
       this.enabledTotal = this.enabledTotal + data.item.ddAmount;
+      this.howManyDirectDebits++;
     }
 
     if (!data.event.checked) {
       this.enabledTotal = this.enabledTotal - data.item.ddAmount;
+      this.howManyDirectDebits--;
     }
     data.item.ddEnabled = data.event.checked;
     this.directDebitService.updateDirectDebit(data.item, data.item.id);
